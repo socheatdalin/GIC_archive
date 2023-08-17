@@ -4,36 +4,24 @@ import { Link } from "react-router-dom";
 import styles from "./styles/loginform.module.css";
 
 const login = () => {
-        const [data, setData] = useState({ email: "", password: "" });
-        const [error] = useState("");
-
-        const handleChange = ({ currentTarget: input }) => {
-                setData({ ...data, [input.name]: input.value });
-        };
+        const [username, setUsername] = useState('');
+        const [password, setPassword] = useState('');
 
         const handleSubmit = async (e) => {
                 e.preventDefault();
-                // console.log(data.email)
-                const url = "http://localhost:3000/login";
-                // console.log(data.email)
-                const response = await axios.post(url, { email: data.email, password: data.password }, { withCredentials: true });
-                console.log(response.data.role)
-                if (response.status === 200) {
-                        // console.log(response.data.role)
-                        if (response.data.role === "student") {
-                                console.log(response.role)
-                                localStorage.setItem("role", "student");
-                                window.location.replace("/student")
-                        } else if (response.data.role === "teacher") {
-                                localStorage.setItem("role", "teacher");
-                                window.location.replace("/teacher")
-                        } else {
-                                alert("Incorrect password or email!")
-                        }
-                } else {
-                        alert("Incorrect password or email!")
+                try {
+                        const response = await axios.post('http://localhost:3001/auth/login', {
+                                username,
+                                password,
+                        });
+                        const token = response.data.token;
+                        // Store the token in local storage or a cookie
+                        console.log('Logged in', token);
+                } catch (error) {
+                        console.error('Login error', error);
                 }
-        };
+
+        }
 
         return (
                 <div className={styles.login_container}>
@@ -45,8 +33,8 @@ const login = () => {
                                                         type="email"
                                                         placeholder="Email"
                                                         name="email"
-                                                        // onChange={handleChange}
-                                                        // value={data.email}
+                                                        onChange={handleChange}
+                                                        value={data.email}
                                                         required
                                                         className={styles.input}
                                                 />
@@ -54,19 +42,19 @@ const login = () => {
                                                         type="password"
                                                         placeholder="Password"
                                                         name="password"
-                                                        // onChange={handleChange}
-                                                        // value={data.password}
+                                                        onChange={handleChange}
+                                                        value={data.password}
                                                         required
                                                         className={styles.input}
                                                 />
                                                 {error && <div className={styles.error_msg}>{error}</div>}
-                                                
-                                               <Link to="/home">
-                                                 <button 
-                                                //  onClick={handleSubmit} 
-                                                 type="submit" className={styles.green_btn}>
-                                                        Sing In
-                                                </button></Link>
+
+                                                <Link to="">
+                                                        <button
+                                                                onClick={handleSubmit}
+                                                                type="submit" className={styles.green_btn}>
+                                                                Sing In
+                                                        </button></Link>
                                         </form>
                                 </div>
                                 <div className={styles.right}>

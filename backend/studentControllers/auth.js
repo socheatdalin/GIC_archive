@@ -2,7 +2,7 @@ const db = require('../config/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'student_key';
+const JWT_SECRET = 'secret';
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -25,7 +25,8 @@ const login = async (req, res) => {
             email: student[0].email,
             role: 'student'
         };
-
+        console.log(studentData.role);
+        
         const token = jwt.sign(studentData, JWT_SECRET);
 
         return res.json({ message: 'Student login successful', token });
@@ -35,17 +36,21 @@ const login = async (req, res) => {
     }
 }
 const signup = async (req, res) => {
-    const { first_name, last_name, email, password, address, phone, enrollment_year } = req.body;
+    const { first_name, last_name, email, gender, password, address, phone, enrollment_year } = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const result = await db.query(
-            'INSERT INTO students (first_name, last_name, email, password, address, phone, enrollment_year) VALUES (?, ?, ?, ?,?,?,?)',
-            [first_name, last_name, email, hashedPassword, address, phone, enrollment_year]
+            'INSERT INTO students (first_name, last_name, gender, email, password, address, phone, enrollment_year) VALUES (?, ?, ?,?, ?,?,?,?)',
+            [first_name, last_name, gender, email, hashedPassword, address, phone, enrollment_year]
         );
-
-        res.json({ message: 'Teacher registered successfully' });
+        const user = await db.query(
+             'INSERT INTO account ( email, password, role) VALUES (?, ?, "student")',
+            [ email, hashedPassword]
+        )
+        console.log(user);
+        res.json({ message: 'Student registered successfully' });
     }
     catch (error) {
         console.error(error);

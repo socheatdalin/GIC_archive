@@ -9,6 +9,8 @@ const register = () => {
 		lastName: "",
 		email: "",
 		password: "",
+		gender:"",
+		phone:""
 	});
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
@@ -20,7 +22,7 @@ const register = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:8080/api/users";
+			const url = "http://localhost:3000";
 			const { data: res } = await axios.post(url, data);
 			navigate("/SignIn");
 			console.log(res.message);
@@ -53,8 +55,8 @@ const register = () => {
 							type="text"
 							placeholder="First Name"
 							name="firstName"
-							// onChange={handleChange}
-							// value={data.firstName}
+							onChange={handleChange}
+							value={data.firstName}
 							required
 							className={styles.input}
 						/>
@@ -62,8 +64,8 @@ const register = () => {
 							type="text"
 							placeholder="Last Name"
 							name="lastName"
-							// onChange={handleChange}
-							// value={data.lastName}
+							onChange={handleChange}
+							value={data.lastName}
 							required
 							className={styles.input}
 						/>
@@ -71,8 +73,8 @@ const register = () => {
 							type="email"
 							placeholder="Email"
 							name="email"
-							// onChange={handleChange}
-							// value={data.email}
+							onChange={handleChange}
+							value={data.email}
 							required
 							className={styles.input}
 						/>
@@ -80,8 +82,8 @@ const register = () => {
 							type="password"
 							placeholder="Password"
 							name="password"
-							// onChange={handleChange}
-							// value={data.password}
+							onChange={handleChange}
+							value={data.password}
 							required
 							className={styles.input}
 						/>

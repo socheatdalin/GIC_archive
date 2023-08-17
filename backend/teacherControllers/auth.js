@@ -2,7 +2,7 @@ const db = require('../config/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'teacher_key';
+const JWT_SECRET = 'secret';
 
 const login = async (req, res) =>{
         const { email, password } = req.body;
@@ -36,7 +36,7 @@ const login = async (req, res) =>{
 }
 
 const signup = async (req, res) =>{
-        const { first_name, last_name, email, password} = req.body;
+        const { first_name, last_name, email, password,role} = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -45,7 +45,11 @@ const signup = async (req, res) =>{
             'INSERT INTO teachers (first_name, last_name, email, password) VALUES (?, ?, ?, ?)',
             [first_name, last_name, email, hashedPassword]
         );
-
+        const user = await db.query(
+         'INSERT INTO account ( email, password, role) VALUES (?, ?, ?)',
+           [ email, hashedPassword,"teacher"]
+       )
+       console.log(user);
         res.json({ message: 'Teacher registered successfully' });
     } 
     catch (error) {
