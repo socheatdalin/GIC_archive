@@ -1,27 +1,34 @@
 const express = require('express')
 const student = require('../studentControllers/auth')
 const teacher = require('../teacherControllers/auth')
-const admin = require('../controllers/authentication')
+const db = require('../config/db')
 const con = require('../controllers/auth')
-const thesis = require('../studentControllers/Thesis')
 const multer = require('multer')
+const fs = require('fs');
 const router = express.Router();
-// var upload = multer({storage: storage});
 
-router.get('/' , (req,res) =>{
+router.get('/', (req, res) => {
         res.send("<h1>Welcome home page.</h1>")
 })
-router.post('/login',con.login);
-// router.get('/register',signup.getall);
+router.post('/login', con.login);
 router.post('/signUp/teacher', teacher.signup);
-router.post('/login/teacher', teacher.login);
-router.post('/login/student', student.login);
 router.post('/signup/student', student.signup);
 
-// router.post('/student/Thesis/upload',thesis.Upload, upload.single('dataFile'))
-// router.use('/upload', express.static('upload'));
-
-
-
+const upload = multer({ dest: 'uploads/' });
+// router.post('/upload', upload.single('pdf'), (req, res) => {
+//         const pdfPath = req.file.path;
+//         const pdfData = fs.readFileSync(pdfPath);
+      
+//         const query = 'INSERT INTO pdf_files (filename, filepath) VALUES (?, ?)';
+//         db.query(query, [req.file.originalname, pdfData], (err, results) => {
+//           if (err) {
+//             console.error('Error saving PDF data:', err);
+//             res.status(500).json({ message: 'Error saving PDF data' });
+//           } else {
+//             fs.unlinkSync(pdfPath); // Delete the temporary file
+//             res.status(200).json({ message: 'PDF data saved successfully' });
+//           }
+//         });
+// });
 
 module.exports = router;

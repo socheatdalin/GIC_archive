@@ -75,7 +75,7 @@ exports.login = async function login(req, res) {
                             email: user[0].email,
                             password: user[0].password
                         };
-                        // console.log(studentData);
+                        console.log(studentData);
                         if (req.body.role == "student"){
                                 const token = jwt.sign(studentData, JWT_SECRET);
                                 return res.json({ message: 'Student login successful', token });

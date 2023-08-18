@@ -17,8 +17,6 @@ pool.query('CREATE DATABASE IF NOT EXISTS project_gic', (createErr) => {
                 console.error('Error creating the database:', createErr);
                 return;
         } 
-        
-        // console.log('Database created successfully');
 
 });
 pool.query('use project_gic');
@@ -50,7 +48,27 @@ pool.query("CREATE TABLE IF NOT EXISTS thesis (id INT PRIMARY KEY AUTO_INCREMENT
                 console.log('Table created successfully');
         }
 })
+pool.query("CREATE TABLE IF NOT EXISTS pdf_files (filename VARCHAR(255), filepath VARCHAR(255))", (createErr) =>{
+        if (createErr) {
+                console.error('Error creating the table:', createErr);
+        } else {
+                console.log('Table created successfully');
+        }
+});
+pool.query("CREATE TABLE IF NOT EXISTS courses (id INT PRIMARY KEY AUTO_INCREMENT, teacher_id INT , name VARCHAR(255))", (createErr) =>{
+        if (createErr) {
+                console.error('Error creating the table:', createErr);
+        } else {
+                console.log('Table created successfully');
+        }
+});
 
-
+pool.query("CREATE TABLE IF NOT EXISTS files (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL)", (error) =>{
+        if (error) {
+                console.error('Error creating the table:', error);
+        } else {
+                console.log('Table created successfully');
+        }
+})
 
 module.exports = pool.promise();
