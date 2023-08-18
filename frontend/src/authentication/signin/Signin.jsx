@@ -1,30 +1,29 @@
-import { useState ,useNavigate } from "react";
+import { useState} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles/loginform.module.css";
 
 const Signin = () => {
-        const navigate = useNavigate();
+        let navigate = useNavigate();
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [role, setRole] = useState('');
-      
+
         const handleSubmit = e => {
                 // Prevent the default submit and page reload
-                e.preventDefault()
-            
+                e.preventDefault();
                 // Handle validations
-                axios.post("http://localhost:3001/login", { email, password ,role})
-                  .then(response => {
-                    console.log(response.data);
-                    console.log("login successfully");
-                    // Handle response
-                  })
-              }
-              const navigateHome = () => {
-                // 👇️ navigate to /
-                navigate('/home');
-              };
+                axios.post("http://localhost:3001/login", { email, password, role })
+                        .then(response => {
+                                console.log(response.data);
+                                console.log("login successfully");
+                                // Handle response
+                                alert(" login")
+                        })
+                        navigate("/home")
+        }
+
         return (
                 <div className={styles.login_container}>
                         <div className={styles.login_form_container}>
@@ -49,7 +48,7 @@ const Signin = () => {
                                                         required
                                                         className={styles.input}
                                                 />
-                                                 <input
+                                                <input
                                                         type="Role"
                                                         placeholder="Role"
                                                         name="role"
@@ -59,7 +58,7 @@ const Signin = () => {
                                                         className={styles.input}
                                                 />
                                                 {/* {error && <div className={styles.error_msg}>{error}</div>} */}
-                                                <button  type="submit" className={styles.green_btn} onClick={navigateHome}>
+                                                <button type="submit" className={styles.green_btn} >
                                                         Sing In
                                                 </button>
                                         </form>

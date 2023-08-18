@@ -47,14 +47,9 @@ pool.query("CREATE TABLE IF NOT EXISTS thesis (id INT PRIMARY KEY AUTO_INCREMENT
         } else {
                 console.log('Table created successfully');
         }
-})
-pool.query("CREATE TABLE IF NOT EXISTS pdf_files (filename VARCHAR(255), filepath VARCHAR(255))", (createErr) =>{
-        if (createErr) {
-                console.error('Error creating the table:', createErr);
-        } else {
-                console.log('Table created successfully');
-        }
+        
 });
+
 pool.query("CREATE TABLE IF NOT EXISTS courses (id INT PRIMARY KEY AUTO_INCREMENT, teacher_id INT , name VARCHAR(255))", (createErr) =>{
         if (createErr) {
                 console.error('Error creating the table:', createErr);
@@ -62,13 +57,19 @@ pool.query("CREATE TABLE IF NOT EXISTS courses (id INT PRIMARY KEY AUTO_INCREMEN
                 console.log('Table created successfully');
         }
 });
-
-pool.query("CREATE TABLE IF NOT EXISTS files (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL)", (error) =>{
-        if (error) {
-                console.error('Error creating the table:', error);
-        } else {
-                console.log('Table created successfully');
-        }
-})
+// pool.query("CREATE TABLE IF NOT EXISTS pdf_files (filename VARCHAR(255), filepath VARCHAR(255))", (createErr) =>{
+//         if (createErr) {
+//                 console.error('Error creating the table:', createErr);
+//         } else {
+//                 console.log('Table created successfully');
+//         }
+// });
+// pool.query("CREATE TABLE IF NOT EXISTS files (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL)", (error) =>{
+//         if (error) {
+//                 console.error('Error creating the table:', error);
+//         } else {
+//                 console.log('Table created successfully');
+//         }
+// })
 
 module.exports = pool.promise();
