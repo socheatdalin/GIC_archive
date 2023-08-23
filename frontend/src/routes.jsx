@@ -1,6 +1,6 @@
-import React from 'react';
-import App from './view/app';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import React from "react";
+import App from "./view/app";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 // import Login from './auth/login';
 
 export default function Routes() {
@@ -9,7 +9,7 @@ export default function Routes() {
       <Switch>
         <Route path="/home1" component={App} />
         {/* <Route path="/" component={Login} /> */}
-        <Redirect to={'/home1'} /> <App />
+        {/* <Route path="/home1 " /> <App /> */}
       </Switch>
     </BrowserRouter>
   );

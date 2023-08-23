@@ -8,6 +8,7 @@ import Upload from './pages/Uploadthesis';
 import Detail from './pages/ThesisDetail';
 import Register from './authentication/register/Register';
 import Signin from './authentication/signin/Signin';
+import Home1 from '../src/view/app/index'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
           <Route path="/detail" element={<Detail />} />
           <Route path='/login' element={<Signin />} ></Route>
           <Route path='/register' element={<Register />} ></Route>
-  
+          <Route path="/home1" element={<Home1 />} />
         </Routes>
       </Router>
       

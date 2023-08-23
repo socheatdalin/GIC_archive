@@ -4,7 +4,6 @@ import {
   Grid,
   IconButton,
   VStack,
-  useDisclosure,
 } from '@chakra-ui/react';
 import SELECT_OPTIONS from 'react-select';
 import makeAnimated from 'react-select/animated';

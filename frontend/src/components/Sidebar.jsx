@@ -17,31 +17,34 @@ import {
   Text,
   useMenuButton,
   ChakraProvider,
-} from '@chakra-ui/react';
-import image from './asssets';
+} from "@chakra-ui/react";
+import image from "./asssets";
 // import { Box } from '@mui/material';
-import { Box } from '@chakra-ui/react';
-import React, { createContext, useEffect, useState } from 'react';
-import { MenuConstants } from './constants/menu';
-import { useHistory, useLocation } from 'react-router';
-import { checkIsActive } from './utils/functions';
-import { getCurrentUrl } from './utils/functions';
-import { NavLink as CustomLink } from 'react-router-dom';
+import { Box } from "@chakra-ui/react";
+import React, { createContext, useEffect, useState } from "react";
+import { MenuConstants } from "./constants/menu";
+import { useLocation } from "react-router-dom";
+import { checkIsActive } from "./utils/functions";
+import { getCurrentUrl } from "./utils/functions";
+import { NavLink as CustomLink } from "react-router-dom";
+// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { HiOutlineMenuAlt1, HiSelector } from 'react-icons/hi';
-import { BiUserCircle } from 'react-icons/bi';
+import { HiOutlineMenuAlt1, HiSelector } from "react-icons/hi";
+import { BiUserCircle } from "react-icons/bi";
 
-const SidebarContext = createContext('SidebarContext');
+const SidebarContext = createContext("SidebarContext");
 
 export default function Sidebar() {
   const [toggle, setToggle] = useState(false);
   const [collapse, setCollapse] = useState(false);
   const location = useLocation();
   // const navigate = useNavigate();
-  const history = useHistory();
+  // const history = useHistory();  
+  const navigate = useNavigate();
 
   const getMenuItemActive = (url) => {
-    if (location.key && location.pathname !== '/') {
+    if (location.key && location.pathname !== "/") {
       return checkIsActive(location, url);
     }
   };
@@ -62,9 +65,9 @@ export default function Sidebar() {
         w="full"
         h="full"
         direction="column"
-        style={{ borderRight: '1px solid white' }}
+        style={{ borderRight: "1px solid white" }}
         transition="width 0.1s"
-        width={`${toggle ? '45px' : '250px'}`}
+        width={`${toggle ? "45px" : "250px"}`}
       >
         <Flex
           overflow="hidden"
@@ -77,14 +80,23 @@ export default function Sidebar() {
           overflowY="auto"
           px="0"
         >
-          <Box h="3rem" pos="relative" w="full" style={{backgroundColor:'#23395d', height:'700px'}}>
+          <Box
+            h="3rem"
+            pos="relative"
+            w="full"
+            style={{ backgroundColor: "#23395d", height: "700px" }}
+          >
             <Fade in={!collapse}>
               <Center mt="5px" h="4rem">
-                <Image style={{borderRadius:'2px'}} w="60px" src={image.logo} />
+                <Image
+                  style={{ borderRadius: "2px" }}
+                  w="60px"
+                  src={image.logo}
+                />
               </Center>
             </Fade>
             <IconButton
-              _focus={{ outline: 'none' }}
+              _focus={{ outline: "none" }}
               variant="ghost"
               colorScheme="brand"
               pos="absolute"
@@ -95,7 +107,7 @@ export default function Sidebar() {
               cursor="pointer"
               border="1px solid transparent"
               onClick={() => setToggle(!toggle)}
-              icon={<HiOutlineMenuAlt1 size="1.5rem"/>}
+              icon={<HiOutlineMenuAlt1 size="1.5rem" />}
             />
             <Box>
               <Fade in={!collapse}>
@@ -135,9 +147,9 @@ export default function Sidebar() {
                           isActive={getMenuItemActive(path)}
                           onClick={() => {
                             path !== getCurrentUrl(location) &&
-                              history.push(path);
+                              navigate.push(path);
                           }}
-                          icon={<Box sx={{ ml: '5px' }}>{icon}</Box>}
+                          icon={<Box sx={{ ml: "5px" }}>{icon}</Box>}
                           label={
                             <Box ml="5px" mb="1px" fontWeight="normal">
                               {name}
@@ -172,7 +184,7 @@ const UserProfile = () => {
           <MenuList
             shadow="lg"
             py="2"
-            color={mode('gray.600', 'gray.300')}
+            color={mode("gray.600", "gray.300")}
             px="2"
           >
             {/* <MenuItem
@@ -183,7 +195,7 @@ const UserProfile = () => {
             >
               Change Password
             </MenuItem> */}
-            <CustomLink to='/login'>
+            <CustomLink to="/login">
               <MenuItem rounded="md">Logout</MenuItem>
             </CustomLink>
           </MenuList>
@@ -206,7 +218,7 @@ const AccountSwitcherButton = () => {
       justifyContent="center"
       alignItems="center"
       rounded="lg"
-      bg={mode('gray.200', 'gray.600')}
+      bg={mode("gray.200", "gray.600")}
       borderRadius="6px"
       p="2"
       fontSize="md"
@@ -214,8 +226,8 @@ const AccountSwitcherButton = () => {
       cursor="pointer"
       outline="0"
       transition="all 0.2s"
-      _active={{ bg: mode('gray.200', 'gray.600') }}
-      _focus={{ shadow: 'outline' }}
+      _active={{ bg: mode("gray.200", "gray.600") }}
+      _focus={{ shadow: "outline" }}
     >
       <HStack flex="1" spacing="3">
         <>
@@ -251,7 +263,7 @@ const AccountSwitcherButton = () => {
       {
         /* !collapse && */ <Box
           fontSize="lg"
-          color={mode('gray.800', 'gray.400')}
+          color={mode("gray.800", "gray.400")}
         >
           <HiSelector />
         </Box>
@@ -275,24 +287,24 @@ const NavLink = (props) => {
       fontWeight="medium"
       userSelect="none"
       cursor="pointer"
-      aria-current={isActive ? 'page' : undefined}
+      aria-current={isActive ? "page" : undefined}
       color="gray.600"
       _hover={{
-        bg: 'white',
-        color: '#23395d',
-        border: '1px solid #23395d'
+        bg: "white",
+        color: "#23395d",
+        border: "1px solid #23395d",
       }}
       _activeLink={{
-        bg: 'white',
-        color: '#23395d',
-        border: '1px solid #23395d'
+        bg: "white",
+        color: "#23395d",
+        border: "1px solid #23395d",
       }}
       {...rest}
     >
       <HStack mt="10px" h="20px" spacing="5">
         <Box fontSize="lg">{icon}</Box>
         {!collapse && (
-          <Text as="span" fontWeight={'bold'}>
+          <Text as="span" fontWeight={"bold"}>
             <Fade in={!collapse}>{label}</Fade>
           </Text>
         )}

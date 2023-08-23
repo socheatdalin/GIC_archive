@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { Suspense } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 
 // const DelayImport = (path) => {
@@ -110,7 +110,7 @@ export default function App() {
           flex="1"
         >
           <AnimatePresence mode="wait">
-            <Switch location={location} key={location.pathname}>
+            <Routes location={location} key={location.pathname}>
               {routeItem.map(({ path, element }) => (
                 <Route key={path} path={path}>
                   <MotionBox
@@ -138,7 +138,7 @@ export default function App() {
                   </MotionBox>
                 </Route>
               ))}
-            </Switch>
+            </Routes>
           </AnimatePresence>
         </Box>
       </Flex>

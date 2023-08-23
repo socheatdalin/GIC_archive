@@ -1,23 +1,9 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { Suspense } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
-
-// const DelayImport = (path) => {
-//   return React.lazy(() => {
-//     return Promise.all([
-//       path,
-//       new Promise((resolve) => setTimeout(resolve, 300)),
-//     ]).then(([moduleExports]) => moduleExports);
-//   });
-// };
 import SplashScreen from '../../components/loader/SplashScreen';
-
-
-// import Student from './setting/student';
-// import Teacher from './setting/teacher';
-// import Course from './setting/course';
 
 const DelayImport = (path) => {
   return React.lazy(() => {
@@ -30,19 +16,13 @@ const DelayImport = (path) => {
 
 //List
 const Student = DelayImport(import('./setting/student'));
-// const Teacher = DelayImport(import('./setting/teacher'));
+
 const Year = DelayImport(import('./setting/year'));
-// const Courses = DelayImport(import('./setting/course'));
+
 const Dashboard = DelayImport(import('./setting/dashboard'));
-// const Timetable = DelayImport(import('./setting/timetable'));
-// const Academic = DelayImport(import('./setting/academic'));
-// const Room = DelayImport(import('./setting/room'));
+
 const Thesis = DelayImport(import('./setting/thesis'));
 
-//Setting
-// const SystemRole = DelayImport(import('./setting/system-role'));
-// const User = DelayImport(import('./setting/user'));
-//Inside
 
 const routeItem = [
   {
@@ -53,10 +33,6 @@ const routeItem = [
     path: '/home1/year',
     element: <Year />,
   },
-  // {
-  //   path: '/course',
-  //   element: <Courses />,
-  // },
   {
     path: '/home1/dashboard',
     element: <Dashboard />,
@@ -86,7 +62,7 @@ export default function App() {
           flex="1"
         >
           <AnimatePresence mode="wait">
-            <Switch location={location} key={location.pathname}>
+            <Routes location={location} key={location.pathname}>
               {routeItem.map(({ path, element }) => (
                 <Route key={path} path={path}>
                   <MotionBox
@@ -114,7 +90,7 @@ export default function App() {
                   </MotionBox>
                 </Route>
               ))}
-            </Switch>
+            </Routes>
           </AnimatePresence>
         </Box>
       </Flex>
