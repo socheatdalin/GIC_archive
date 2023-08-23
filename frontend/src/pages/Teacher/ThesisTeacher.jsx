@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "../Teacher/ThesisTeacher";
 import SearchBar from '../../components/SearchBar';
-
+import Navbar from '../../components/Navbar';
 
 function Thesis() {
     const handleSearch = (query) => {
@@ -11,6 +11,8 @@ function Thesis() {
       };
 
   return (
+    <><Navbar />
+  
     <div className='p-5 container'>
         <div className=' d-flex flex-row mb-3 justify-content-between '>
             <div className=''>
@@ -36,7 +38,7 @@ function Thesis() {
             </div>
         </div>
         
-    </div>
+    </div>  </>
   )
 }
 

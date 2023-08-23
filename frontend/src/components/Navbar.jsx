@@ -13,6 +13,7 @@ function Navbar() {
   };
 
   return (
+
     <div className="Navbar">
       <div className="leftSide">
         <img src={Logo} alt="itc" />
@@ -32,7 +33,7 @@ function Navbar() {
             <img src={Profile} alt="student" />
           </div>
           <div className="profile-name">
-            John Doe
+            
           </div>
           {/* Add dropdown menu for profile actions */}
           <div className="profile-dropdown">

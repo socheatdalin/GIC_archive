@@ -46,11 +46,11 @@ const Thesis = DelayImport(import('./setting/thesis'));
 
 const routeItem = [
   {
-    path: '/student',
+    path: '/home1/student',
     element: <Student />,
   },
   {
-    path: '/year',
+    path: '/home1/year',
     element: <Year />,
   },
   // {
@@ -58,11 +58,11 @@ const routeItem = [
   //   element: <Courses />,
   // },
   {
-    path: '/dashboard',
+    path: '/home1/dashboard',
     element: <Dashboard />,
   },
   {
-    path: '/thesis',
+    path: '/home1/thesis',
     element: <Thesis />,
   },
 ];

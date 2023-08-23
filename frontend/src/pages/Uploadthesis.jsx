@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
 
 const FileUploadForm = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -40,6 +41,7 @@ const FileUploadForm = () => {
   };
 
   return (
+    <><Navbar />
     <div className='p-5 container'>
         <div className='p-5 border border-info border-1 rounded-2  '>
           <h4 className='text-info '>Create Thesis</h4>
@@ -103,6 +105,8 @@ const FileUploadForm = () => {
             <button class="btn btn-primary">Next</button>
           </div>
         </div>
+    
+    
         
       {/* <div>
         <label>Name:</label>
@@ -123,6 +127,7 @@ const FileUploadForm = () => {
       </div> */}
       
     </div>
+    </>
   );
 };
 

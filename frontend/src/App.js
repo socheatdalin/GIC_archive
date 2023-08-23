@@ -1,6 +1,5 @@
 import './App.css'
-import Navbar from "./components/Navbar"
-import Home from "./pages/Home";
+import Home from "./components/Home/Home"
 import Thesis from './pages/Thesis';
 import Studentthesis from './pages/Student/Thesisstudent.jsx'
 import Teacherthesis from './pages/Teacher/ThesisTeacher'
@@ -15,7 +14,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/thesis" element={<Thesis />} />
@@ -26,8 +24,7 @@ function App() {
           <Route path="/detail" element={<Detail />} />
           <Route path='/login' element={<Signin />} ></Route>
           <Route path='/register' element={<Register />} ></Route>
-          {/* <Route path='/login' element={<Signin authenticated={authenticated} setAuthenticated={setAuthenticated} />} />
-          <Route path='/register' element={<Register authenticated={authenticated} setAuthenticated={setAuthenticated} />} /> */}
+  
         </Routes>
       </Router>
       

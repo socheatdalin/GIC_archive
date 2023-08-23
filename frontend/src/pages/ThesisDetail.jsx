@@ -1,7 +1,10 @@
 import React from 'react'
 import Web from "../assets/ux.png";
+import Navbar from '../components/Navbar';
 function ThesisDetail() {
   return (
+    <>
+    <Navbar />
       <div className='p-5 container'>
         <h4>Detials</h4>
         <div className='p-5 border border-1 rounded-2 shadow p-3 mb-5 my-5 bg-body-tertiary rounded  '>
@@ -45,7 +48,7 @@ function ThesisDetail() {
          
         </div>
         
-    </div>
+    </div></>
   )
 }
 

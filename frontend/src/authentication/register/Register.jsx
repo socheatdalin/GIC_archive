@@ -57,16 +57,17 @@ const Register = () => {
 							required
 							className={styles.input}
 						/>
-						<input
-							type="gender"
-							placeholder="Gender"
-							name="gender"
-							onChange={e => setgender(e.target.value)}
-							value={gender}
-							required
-							className={styles.input}
-						/>
-						<input
+						  <select
+                            name="gender"
+                            onChange={e => setgender(e.target.value)}
+                            value={gender}
+                            required
+                            className={styles.input} >
+                            <option value="">Gender</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+							<option value="sth">Prefer not to say</option></select>   
+						<input 
 							type="address"
 							placeholder="Address"
 							name="address"
