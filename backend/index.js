@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
         res.setHeader('Access-Control-Allow-Credentials', true);
         next();
 });
-app.use(express.json({limit: '25mb'}));
+app.use(express.json({limit: '50mb'}));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 // router 

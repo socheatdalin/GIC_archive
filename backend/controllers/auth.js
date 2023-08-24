@@ -35,8 +35,7 @@ exports.login = async function login(req, res) {
         }
         if (req.body.email === admin.email && req.body.password === admin.password) {
                 const token = jwt.sign(admin, JWT_SECRET);
-                res
-                        .status(200)
+                res.status(200)
                         .cookie("access_token", token, {
                                 maxAge: 90000000,
                                 httpOnly: true,
@@ -59,7 +58,7 @@ exports.login = async function login(req, res) {
         else {
                 const role = req.body;
                 try {
-                        const [user] = await db.query('SELECT * FROM account WHERE email = ? ', [email]);
+                        const [user] =await db.promise().query('SELECT * FROM account WHERE email = ? ', [email]);
                 
                         if (user.length === 0) {
                             return res.status(404).json({ message: 'user not found' });

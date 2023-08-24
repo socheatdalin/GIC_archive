@@ -1,34 +1,42 @@
-const express = require('express')
-const student = require('../studentControllers/auth')
-const teacher = require('../teacherControllers/auth')
-const db = require('../config/db')
-const con = require('../controllers/auth')
-const multer = require('multer')
+const express = require('express');
+const multer = require('multer');
+const path = require('path');
+const db = require("../config/db");
+const upload_file = require('express-fileupload');
+const student = require('../studentControllers/auth');
+const studentList = require('../studentControllers/List');
+const teacher = require('../teacherControllers/auth');
+const con = require('../controllers/auth');
+const thesis = require('../studentControllers/Thesis');
 const fs = require('fs');
+
 const router = express.Router();
+
+const upload = multer({ dest: 'uploads/' });
 
 router.get('/', (req, res) => {
         res.send("<h1>Welcome home page.</h1>")
-})
+});
 router.post('/login', con.login);
-router.post('/signUp/teacher', teacher.signup);
+router.post('/signup/teacher', teacher.signup);
 router.post('/signup/student', student.signup);
 
-const upload = multer({ dest: 'uploads/' });
-// router.post('/upload', upload.single('pdf'), (req, res) => {
-//         const pdfPath = req.file.path;
-//         const pdfData = fs.readFileSync(pdfPath);
-      
-//         const query = 'INSERT INTO pdf_files (filename, filepath) VALUES (?, ?)';
-//         db.query(query, [req.file.originalname, pdfData], (err, results) => {
-//           if (err) {
-//             console.error('Error saving PDF data:', err);
-//             res.status(500).json({ message: 'Error saving PDF data' });
-//           } else {
-//             fs.unlinkSync(pdfPath); // Delete the temporary file
-//             res.status(200).json({ message: 'PDF data saved successfully' });
-//           }
-//         });
-// });
+//student 
+router.get('/student/all', studentList.displayAll);
+router.get('/student/:id', studentList.getbyId);
+router.post('/student/name', studentList.getbyName);
+router.post('/student/delete/:id', studentList.delect);
+router.post('/student/update/:id', studentList.update);
 
+//file
+// router.use(upload_file());
+router.get('/upload', (req, res) => {
+        res.sendFile(__dirname + '/index.html');
+});
+//thesis
+router.post('/upload', upload.single('pdf'), thesis.Upload);
+router.get('/thesis/all', thesis.displayThesis);
+router.get('/thesis/all/:id', thesis.displayById);
+router.post('/thesis/field', thesis.SearchbyField);
+router.post('/thesis/delete/:id', thesis.delect);
 module.exports = router;

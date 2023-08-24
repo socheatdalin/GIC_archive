@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>file upload</title>
+</head>
+
+<body>
+        <h1>upload files</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="text" name="name" id="name" placeholder="your name">
+                <input type="number" name="student_id" id="student_id" placeholder=" student id">
+                <input type="text" name="supervisor_name" id="supervisor_name" placeholder=" teacher name">
+                <input type="text" name="title" id="title" placeholder="title">
+                <input type="text" name="field" id="title" placeholder="field">
+                <input type="text" name="company" id="comapny" placeholder="company">
+                <input type="text" name="descr" id="descr" placeholder="desc">
+                <input type="url" name="GITHub_Url" id="GITHub_Url" placeholder="Giturl">
+                <input type="text" name="year" id="year" placeholder="year">
+                <input type="file" name="pdf" accept=".pdf">
+                <button type="submit">Upload PDF</button>
+        </form>
+
+</body>
+
+
+</html>

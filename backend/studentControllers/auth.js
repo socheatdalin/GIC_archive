@@ -36,14 +36,14 @@ const JWT_SECRET = 'secret';
 //     }
 // }
 const signup = async (req, res) => {
-    const { first_name, last_name, email, gender, password, address, phone, enrollment_year } = req.body;
+    const { fullname, email, gender, password, address, phone, enrollment_year } = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const result = await db.query(
-            'INSERT INTO students (first_name, last_name, gender, email, password, address, phone, enrollment_year) VALUES (?, ?, ?,?, ?,?,?,?)',
-            [first_name, last_name, gender, email, hashedPassword, address, phone, enrollment_year]
+            'INSERT INTO students (fullname, gender, email, password, address, phone, enrollment_year) VALUES ( ?, ?,?, ?,?,?,?)',
+            [fullname, gender, email, hashedPassword, address, phone, enrollment_year]
         );
         const user = await db.query(
              'INSERT INTO account ( email, password, role) VALUES (?, ?, "student")',
