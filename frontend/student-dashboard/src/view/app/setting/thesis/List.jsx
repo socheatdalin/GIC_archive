@@ -91,7 +91,7 @@ const headCells = [
     id: 'teacher',
     numeric: false,
     disablePadding: false,
-    label: 'Taught By',
+    label: 'Supervisor',
   },
   {
     id: 'field',
@@ -1499,13 +1499,13 @@ export default function List() {
             </Button>
           </Flex>
           <Grid h="42px" mr="10px">
-            <Button
+            <Link to = "/upload"><Button
               sx={{ width: '75px' , backgroundColor: '#23395d'}}
               variant="solid"
-              onClick={() => setOpen(true)}
+              onClick={() => setOpen(false)}
             >
-              Add
-            </Button>
+              Add 
+            </Button></Link>
           </Grid>
         </Box>
       </Grid>

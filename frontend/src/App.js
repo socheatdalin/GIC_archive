@@ -8,7 +8,7 @@ import Upload from './pages/Uploadthesis';
 import Detail from './pages/ThesisDetail';
 import Register from './authentication/register/Register';
 import Signin from './authentication/signin/Signin';
-import Home1 from './view/app/index';
+// import Home1 from './view/app/index';
 
 // import Admin from '../Admin/src'
 
@@ -29,7 +29,7 @@ function App() {
                                         <Route path="/detail" element={<Detail />} />
                                         <Route path='/login' element={<Signin />} ></Route>
                                         <Route path='/register' element={<Register />} ></Route>
-                                        <Route path="/home1" element={<Home1 />} />
+                                        {/* <Route path="/home1" element={<Home1 />} /> */}
                                         {/* <Route path="/admin" element={<Admin />} /> */}
                                 </Routes>
                         </Router>

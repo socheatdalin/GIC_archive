@@ -34,7 +34,8 @@ const Signin = () => {
     //    ;
     //   }
      if (role === "student") {
-      navigate('/home1');
+      // navigate('');
+      window.location.href = 'http://localhost:3003/home';
     }
     else if( role === "teacher"){
       navigate('/upload');
