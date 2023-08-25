@@ -10,6 +10,12 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
 
+
+  const navigateToAppB = () => {
+    // Assuming App B is hosted at a different domain or path
+    window.location.href = 'http://localhost:3002/home'; // Replace with App B's URL
+  };
+
   const handleSubmit = (e) => {
     // Prevent the default submit and page reload
     e.preventDefault();
@@ -20,19 +26,24 @@ const Signin = () => {
         console.log(response.data);
         console.log("login successfully");
         // Handle response
-        alert(" login");
+
       });
     // navigate("/home1");
-    if (role === "admin") {
-      navigate("/admin");
-    }
-    else if (role === "student") {
+    // if (email === "admin@123" && password === "admin" && role === "admin") {
+    //     // navigateToAppB();
+    //    ;
+    //   }
+     if (role === "student") {
       navigate('/home1');
     }
-    else {
-      navigate('/');
+    else if( role === "teacher"){
+      navigate('/upload');
+    }
+    else{
+       window.location.href = 'http://localhost:3002/home';
     }
   };
+
 
   return (
     <div className={styles.login_container}>
@@ -71,9 +82,9 @@ const Signin = () => {
               required
               className={styles.input}
             >
-              <option value="">Select a Role</option>
+              <option value="other">Select a Role</option>
               <option value="student">Student</option>
-              <option value="Teacher">teacher</option>
+              <option value="teacher">Teacher</option>
             </select>
             {/* {error && <div className={styles.error_msg}>{error}</div>} */}
             <button type="submit" className={styles.green_btn}>

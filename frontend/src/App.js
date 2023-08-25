@@ -9,11 +9,13 @@ import Detail from './pages/ThesisDetail';
 import Register from './authentication/register/Register';
 import Signin from './authentication/signin/Signin';
 import Home1 from './view/app/index';
-// import Admin from '../Admin/src/routes'
+
+// import Admin from '../Admin/src'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
+
         return (
                 <div className="App">
                         <Router>
@@ -34,6 +36,8 @@ function App() {
 
                 </div>
         );
-}
+};
 
 export default App;
+
+ 

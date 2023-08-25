@@ -78,10 +78,10 @@ export default function Sidebar() {
           overflowY="auto"
           px="0"
         >
-          <Box h="3rem" pos="relative" w="full" style={{backgroundColor:'#23395d', height:'700px'}}>
+          <Box h="3rem" pos="relative" w="full" style={{ backgroundColor: '#23395d', height: '700px' }}>
             <Fade in={!collapse}>
               <Center mt="5px" h="4rem">
-                <Image style={{borderRadius:'2px'}} w="60px" src={image.logo} />
+                <Image style={{ borderRadius: '2px' }} w="60px" src={image.logo} />
               </Center>
             </Fade>
             <IconButton
@@ -96,7 +96,7 @@ export default function Sidebar() {
               cursor="pointer"
               border="1px solid transparent"
               onClick={() => setToggle(!toggle)}
-              icon={<HiOutlineMenuAlt1 size="1.5rem"/>}
+              icon={<HiOutlineMenuAlt1 size="1.5rem" />}
             />
             <Box>
               <Fade in={!collapse}>
@@ -165,6 +165,9 @@ export default function Sidebar() {
 const UserProfile = () => {
   // const history = useHistory();
   // const { collapse, logout } = useContext(SidebarContext);
+  const navigateToGoogle = () => {
+    window.location.href = 'http://localhost:3000/';
+  };
   return (
     <ChakraProvider>
       <HStack spacing="4" px="2" flexShrink={0} borderTopWidth="1px" p="4">
@@ -184,9 +187,9 @@ const UserProfile = () => {
             >
               Change Password
             </MenuItem> */}
-            <CustomLink to='/login'>
-              <MenuItem rounded="md">Logout</MenuItem>
-            </CustomLink>
+            {/* <CustomLink to='/login'> */}
+            <MenuItem rounded="md" onClick={navigateToGoogle}>Logout</MenuItem>
+            {/* </CustomLink> */}
           </MenuList>
         </Menu>
       </HStack>

@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes />
+        <Routes path="/admin"  />
       </BrowserRouter>
     </div>
   );
