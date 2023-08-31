@@ -78,10 +78,6 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -102,16 +98,16 @@ const headCells = [
     label: 'ID',
   },
   {
-    id: 'name',
+    id: 'last_name',
     numeric: false,
     disablePadding: true,
-    label: 'Name',
+    label: 'Last Name',
   },
   {
-    id: 'gender',
+    id: 'first_name',
     numeric: true,
     disablePadding: false,
-    label: 'Gender',
+    label: 'First Name',
   },
   {
     id: 'email',
@@ -206,6 +202,11 @@ function EnhancedTableHead(props) {
   );
 }
 
+  const gender = [
+    { value: 'F', label: 'Female' },
+    { value: 'M', label: 'Male' },
+  ]
+
 
 const Years = [
   { value: '1', label: '1' },
@@ -228,32 +229,32 @@ var countSearch = 1;
 export default function List() {
 
   var [teacher, setTeacher] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [openView, setOpenView] = React.useState(false);
-  const [inputName,setInputName] = React.useState('');
-  const [inputGender,setInputGender] = React.useState('');
-  const [inputAddress,setInputAddress] = React.useState('');
-  const [inputEmail,setInputEmail] = React.useState('');
-  const [inputPhone,setInputPhone] = React.useState('');
-  const [inputPassword,setInputPassword] = React.useState('');
-  const [inputID,setInputID] = React.useState('')
-  const [inputPhoto,setInputPhoto] = React.useState('')
-  const [openEdit, setOpenEdit] = React.useState(false);
-  const [Name,setName] = React.useState('');
-  const [Gender,setGender] = React.useState('');
-  const [Address,setAddress] = React.useState('');
-  const [Email,setEmail] = React.useState('');
-  const [Phone,setPhone] = React.useState('');
-  const [Password,setPassword] = React.useState('old');
-  const [oldID,set_oldID] = React.useState('')
-  const [ID,setID] = React.useState('')
-  const [Photo,setPhoto] = React.useState('')
+  const [open, setOpen] = useState(false);
+  const [openView, setOpenView] = useState(false);
+  const [inputName,setInputName] = useState('');
+  const [inputGender,setInputGender] = useState('');
+  const [inputAddress,setInputAddress] = useState('');
+  const [inputEmail,setInputEmail] = useState('');
+  const [inputPhone,setInputPhone] = useState('');
+  const [inputPassword,setInputPassword] = useState('');
+  const [inputID,setInputID] = useState('')
+  const [inputPhoto,setInputPhoto] = useState('')
+  const [openEdit, setOpenEdit] = useState(false);
+  const [Name,setName] = useState('');
+  const [Gender,setGender] = useState('');
+  const [Address,setAddress] = useState('');
+  const [Email,setEmail] = useState('');
+  const [Phone,setPhone] = useState('');
+  const [Password,setPassword] = useState('old');
+  const [oldID,set_oldID] = useState('')
+  const [ID,setID] =useState('')
+  const [Photo,setPhoto] = useState('')
   const [searchOpen, setSearchOpen] = useState(false)
-  const [inputFromYear1, setFromYear1] = React.useState('');
+  const [inputFromYear1, setFromYear1] = useState('');
   const [inputToYear1, setToYear1] = React.useState('');
   const [inputYear, setInputYear] = React.useState('');
-  const [openDelete, setOpenDelete] = React.useState(false);
-  const [deleteID, setDeleteID] = React.useState('');
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteID, setDeleteID] =useState('');
 
   const handleCloseDelete = () => {
     setOpenDelete(false)
@@ -291,18 +292,7 @@ export default function List() {
 
   useEffect(() => {
     teachers();
-    axios.get("http://localhost:3000/year/schedule", { withCredentials: true })
-      .then((result) => {
-        let fromYears = []
-        let toYears = []
-        // console.log(result.data.result[0])
-        for (var i = 0; i < result.data.result.length; i++) {
-          fromYears.push({ label: result.data.result[i].FromYear, value: result.data.result[i].FromYear })
-          toYears.push({ label: result.data.result[i].ToYear, value: result.data.result[i].ToYear })
-          setToYear(toYears)
-          setFromYear(fromYears)
-        }
-      })
+
   }, [])
 
   const handleSelectYear = (e) => {
@@ -320,10 +310,6 @@ export default function List() {
     handleSort(inputFromYear1,e.value,inputYear)
   }
 
-  const gender = [
-    { value: 'F', label: 'Female' },
-    { value: 'M', label: 'Male' },
-  ]
 
   const handlePassword = async (e) => {
     setPassword(e.target.value)
@@ -389,7 +375,7 @@ export default function List() {
   
   const handleEdit = async (teacher_id) => {
     console.log(teacher_id)
-    await axios.get("http://localhost:3000/admin/displayOne/teacher/"+teacher_id,{ withCredentials: true })
+    await axios.get("http://localhost:3000/teacher/update/"+teacher_id,{ withCredentials: true })
         .then((result) => {
             setAddress(result.data.results[0].address)
             setEmail(result.data.results[0].email)
@@ -407,85 +393,79 @@ const [courses,setCoures] = React.useState([])
 const [years,setYears] = React.useState([])
 const [froms,setFroms] = React.useState([])
 const [tos,setTos] = React.useState([])
-function courseTable() {
-  return (
-    <div style={{border:'1px solid silver',boxShadow:'2px 2px 2px gray',margin:'auto',marginTop:'-10px', padding: '20px'}}>
-      <span>COURSETABLE</span>
-      <Grid templateColumns="repeat(4,2fr)" gap="2">
-        <VStack spacing="5" style={{margin:'auto'}}>
-          <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>Course</div>
-          {(
-            courses.map((date,index) =>
-            <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
-              <div>
-                {date}
-              </div>
-            </span>
-            ))
-          }
-        </VStack>
-        <VStack spacing="5" style={{margin:'auto'}}>
-          <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>Year</div>
-          {(
-            years.map((year) =>
-            <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
-              <div>
-                {year}
-              </div>
-            </span>
-            ))
-          }
-        </VStack>
-        <VStack spacing="5" style={{margin:'auto'}}>
-          <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>From</div>
-          {(
-            froms.map((room,index) =>
-            <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
-              <div>
-                {room}
-              </div>
-            </span>
-            ))
-          }
-        </VStack>
-        <VStack spacing="5" style={{margin:'auto'}}>
-          <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>To</div>
-          {(
-            tos.map((group,index) =>
-            <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
-              <div>
-                {group}
-              </div>
-            </span>
-            ))
-          }
-        </VStack>
-      </Grid>
-    </div>
-  )
-}
+// function courseTable() {
+//   return (
+//     <div style={{border:'1px solid silver',boxShadow:'2px 2px 2px gray',margin:'auto',marginTop:'-10px', padding: '20px'}}>
+//       <span>COURSETABLE</span>
+//       <Grid templateColumns="repeat(4,2fr)" gap="2">
+//         <VStack spacing="5" style={{margin:'auto'}}>
+//           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>Course</div>
+//           {(
+//             courses.map((date,index) =>
+//             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
+//               <div>
+//                 {date}
+//               </div>
+//             </span>
+//             ))
+//           }
+//         </VStack>
+//         <VStack spacing="5" style={{margin:'auto'}}>
+//           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>Year</div>
+//           {(
+//             years.map((year) =>
+//             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
+//               <div>
+//                 {year}
+//               </div>
+//             </span>
+//             ))
+//           }
+//         </VStack>
+//         <VStack spacing="5" style={{margin:'auto'}}>
+//           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>From</div>
+//           {(
+//             froms.map((room,index) =>
+//             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
+//               <div>
+//                 {room}
+//               </div>
+//             </span>
+//             ))
+//           }
+//         </VStack>
+//         <VStack spacing="5" style={{margin:'auto'}}>
+//           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>To</div>
+//           {(
+//             tos.map((group,index) =>
+//             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
+//               <div>
+//                 {group}
+//               </div>
+//             </span>
+//             ))
+//           }
+//         </VStack>
+//       </Grid>
+//     </div>
+//   )
+// }
   const handleView = async (teacher_id) => {
-    await axios.get("http://localhost:3000/admin/seeDetail/teacher/"+teacher_id,{ withCredentials: true })
+    await axios.get("http://localhost:3001/teacher/" +teacher_id)
         .then((result) => {
-            setAddress(result.data.results.address)
-            setEmail(result.data.results.email)
-            setName(result.data.results.name)
-            setID(result.data.results.teacher_id)
-            setGender(result.data.results.gender)
-            setPhone(result.data.results.phone)
-            setPhoto(result.data.results.photo)
-            // console.log(result.data.results.photo)
-            setCoures(result.data.results.course)
-            setYears(result.data.results.year)
-            setFroms(result.data.results.FromYear)
-            setTos(result.data.results.ToYear)
+            setAddress(result.data[0].address)
+            setEmail(result.data[0].email)
+            setName(result.data[0].fullname)
+            setID(result.data[0].id)
+            setGender(result.data[0].gender)
+            setPhone(result.data[0].phone)
           })
         .catch(error => console.log(error));
     setOpenView(true);
   }
 
   const handleSubmit = async () => {
-    axios.post("http://localhost:3000/admin/signUp/teacher",{address:inputAddress, name: inputName, email: inputEmail,gender: inputGender.value,id: inputID,password: inputPassword, phone: inputPhone, photo: inputPhoto},{ withCredentials: true })
+    axios.post("http://localhost:3001/signUp/teacher",{address:inputAddress, name: inputName, email: inputEmail,gender: inputGender.value,id: inputID,password: inputPassword, phone: inputPhone, photo: inputPhoto})
         .then((result) => {
           window.location.replace('/teacher/list')
           })
@@ -513,9 +493,9 @@ function courseTable() {
         }
 
   const teachers = async () => {
-      axios.get("http://localhost:3000/admin/displayAll/teacher",{ withCredentials: true })
+      axios.get("http://localhost:3001/teacher/all")
         .then((result) => {
-          setTeacher(result.data.results)
+          setTeacher(result.data)
           })
         .catch(error => console.log(error));
   };
@@ -939,7 +919,7 @@ function courseTable() {
                           </div>
                       </div>
                       <div style={{position: 'absolute', top:'330px', left:'68px'}}>
-                        {courseTable()}
+                        {/* {courseTable()} */}
                       </div>
                 </VStack>
               </Grid>
@@ -1087,7 +1067,7 @@ function courseTable() {
                           key={row.name}
                         >
                           <td>{row.id}</td>
-                          <td>{row.name}</td>
+                          <td>{row.fullname}</td>
                           <td>{row.gender}</td>
                           <td>{row.email}</td>
                           <td>{row.phone}</td>

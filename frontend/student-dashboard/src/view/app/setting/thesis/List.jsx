@@ -688,18 +688,7 @@ export default function List() {
   }
 
  useEffect( () => {
-    axios.get("http://localhost:3000/year/schedule", { withCredentials: true })
-    .then((result) => {
-      let fromYears = []
-      let toYears = []
-      // console.log(result.data.result[0])
-      for (var i = 0; i < result.data.result.length; i++) {
-        fromYears.push({ label: result.data.result[i].FromYear, value: result.data.result[i].FromYear })
-        toYears.push({ label: result.data.result[i].ToYear, value: result.data.result[i].ToYear })
-        setToYear(toYears)
-        setFromYear(fromYears)
-      }
-    })
+   
     teacher();
     courses();
   }, [])
