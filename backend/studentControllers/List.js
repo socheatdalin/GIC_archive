@@ -69,7 +69,7 @@ const update = async (req, res) => {
 
 }
 
-const delectStudent = async (req, res) => {
+const deleteStudent = async (req, res) => {
         const id = req.params.id;
         db.query('DELETE FROM students WHERE  id = ?', [id], (err, results) => {
                 if (err) {
@@ -85,5 +85,5 @@ module.exports = {
         getbyId,
         getbyName,
         update,
-        delectStudent
+        deleteStudent
 }

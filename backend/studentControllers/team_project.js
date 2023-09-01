@@ -1,12 +1,12 @@
 const db = require('../config/db');
 
 const create = async (req, res) => {
-        const { course_name, teacher_id, year } = req.body;
 
+        const { project_name, student_id, descr, course_id } = req.body;
         try {
                 const result = await db.promise().query(
-                        'INSERT INTO courses (course_name, teacher_id , year) VALUES (?,?,?)',
-                        [course_name, teacher_id, year]
+                        'INSERT INTO team_project (project_name, student_id, descr, course_id) VALUES (?,?,?,?)',
+                        [project_name, student_id, descr, course_id]
                 );
                 console.log(result);
                 res.json({ message: 'Create successfully' });
@@ -18,12 +18,12 @@ const create = async (req, res) => {
 }
 const update = async (req, res) => {
         const id = req.params.id;
-        const { course_name, teacher_id, year } = req.body;
+        const { project_name, student_id, descr, course_id } = req.body;
 
         try {
                 const result = await db.promise().query(
-                        'UPDATE courses SET course_name =? , teacher_id =? , year = ? WHERE  id = ? ',
-                        [course_name, teacher_id, year, id]
+                        'UPDATE team_project SET project_name =? , student_id =? , descr = ? , course_id =? WHERE  id = ? ',
+                        [project_name, student_id, descr, course_id, id]
                 );
                 console.log(result);
                 res.json({ message: 'Update successfully' });
@@ -35,24 +35,21 @@ const update = async (req, res) => {
 }
 const remove = async (req, res) => {
         const id = req.params.id;
-        db.query('DELETE FROM courses WHERE  id = ?', [id], (err, results) => {
+        db.query('DELETE FROM team_project WHERE  id = ?', [id], (err, results) => {
                 if (err) {
-                        console.error('Error updating courser:', err);
+                        console.error('Error delete project:', err);
                 } else {
-                        res.send('Delete successfully');
-                        console.log('Delete successfully');
+                        console.log('Team project delete successfully');
+                        res.send('Team project delete successfully');
                         console.log(results);
                 }
         })
 }
 const displayAll = async (req, res) => {
 
-        const sqlQuery = 'SELECT * FROM courses';
-
-        db.query(sqlQuery, (error, results) => {
-                if (error) {
-                        console.error('Error executing query:', error);
-                        return;
+        db.query('select * from team_project ', (err, results) => {
+                if (err) {
+                        console.error('Error fetching team project:', err);
                 }
                 else {
                         res.send(results);
@@ -60,29 +57,29 @@ const displayAll = async (req, res) => {
                 console.log(results);
         });
 }
-const getbyId = async (req, res) => {
+const displayById = async (req, res) => {
         const id = req.params.id;
-        const selectQuery = 'SELECT * FROM courses WHERE id= ?';
+        const selectQuery = 'SELECT * FROM team_project WHERE id= ?';
 
         db.query(selectQuery, [id], (err, results) => {
                 if (err) {
-                        console.error('Error fetching course:', err);
+                        console.error('Error fetching team project:', err);
                 }
                 else {
                         if (results.length > 0) {
-                                const course = results[0];
-                                console.log('Course:', course);
+                                const thesis = results[0];
+                                console.log('team_project:', thesis);
                                 res.send(results);
                         } else {
-                                console.log('Course not found');
+                                console.log('Team project not found');
                         }
                 }
-        })
+        });
 }
 module.exports = {
         create,
+        update,
         remove,
         displayAll,
-        update,
-        getbyId
+        displayById
 }

@@ -29,7 +29,7 @@ const displayThesis = async (req, res) => {
 
         db.query('select * from thesis ', (err, results) => {
                 if (err) {
-                        console.error('Error fetching student:', err);
+                        console.error('Error fetching team project:', err);
                 }
                 else {
                         res.send(results);
@@ -75,11 +75,11 @@ const SearchbyField = async (req, res) =>{
                 }
         });
 }
-const delect = async (req, res) =>{
+const remove = async (req, res) =>{
         const id = req.params.id;
         db.query('DELETE FROM thesis WHERE  id = ?', [id], (err, results) => {
                 if (err) {
-                        console.error('Error updating student:', err);
+                        console.error('Error delete thesis:', err);
                 } else {
                         console.log('Thesis delete successfully');
                         res.send('Thesis delete successfully');
@@ -92,5 +92,5 @@ module.exports = {
         displayThesis,
         displayById,
         SearchbyField,
-        delect
+        remove
 }

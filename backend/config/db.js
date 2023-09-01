@@ -47,7 +47,7 @@ pool.query("CREATE TABLE IF NOT EXISTS thesis (id INT PRIMARY KEY AUTO_INCREMENT
 
 });
 
-pool.query("CREATE TABLE IF NOT EXISTS courses (id INT PRIMARY KEY AUTO_INCREMENT, teacher_id INT , name VARCHAR(255))", (createErr) => {
+pool.query("CREATE TABLE IF NOT EXISTS courses (id INT PRIMARY KEY AUTO_INCREMENT, course_name VARCHAR(255), teacher_id INT , year INT, FOREIGN KEY (teacher_id) REFERENCES teachers(id) )", (createErr) => {
         if (createErr) {
                 console.error('Error creating the table:', createErr);
         } else {
@@ -62,12 +62,11 @@ pool.query("CREATE TABLE IF NOT EXISTS pdf_files (id INT PRIMARY KEY AUTO_INCREM
         }
 });
 
-// pool.query("CREATE TABLE IF NOT EXISTS team_project (id INT PRIMARY KEY AUTO_INCREMENT, title VARCHAR(255) NOT NULL,student_id INT, descr VARCH1AR(255))", (error) =>{
-//         if (error) {
-//                 console.error('Error creating the table:', error);
-//         } else {
-//                 console.log('Table created successfully');
-//         }
-// })
-
+pool.query("CREATE TABLE IF NOT EXISTS team_project (id INT PRIMARY KEY AUTO_INCREMENT, project_name VARCHAR(255) NOT NULL, student_id INT , descr VARCHAR(255), course_id INT,  FOREIGN KEY (course_id) REFERENCES courses(id),  FOREIGN KEY (student_id) REFERENCES students(id))", (error) => {
+        if (error) {
+                console.error('Error creating the table:', error);
+        } else {
+                console.log('Table created successfully');
+        }
+});
 module.exports = pool;
