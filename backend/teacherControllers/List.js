@@ -76,7 +76,8 @@ const delectStudent = async (req, res) => {
                         console.error('Error updating teacher:', err);
                 } else {
                         console.log('teacher delete successfully');
-                        console.log(results);
+                        res.send('Delete successfully')
+                        
                 }
         })
 }

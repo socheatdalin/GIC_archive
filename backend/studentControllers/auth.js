@@ -58,8 +58,31 @@ const signup = async (req, res) => {
     }
 }
 
+const test =  async (req, res) => {
+    const { fullname, email, gender, password, address, phone, enrollment_year,groupe, photo } = req.body;
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const result = await db.promise().query(
+            'INSERT INTO studenttest (fullname, gender, email, password, address, phone, enrollment_year,groupe, photo) VALUES ( ?,?, ?,?, ?,?,?,?,?)',
+            [fullname, gender, email, hashedPassword, address, phone, enrollment_year,groupe, photo]
+        );
+        // const user = await db.promise().query(
+        //      'INSERT INTO account ( email, password, role) VALUES (?, ?, "student")',
+        //     [ email, hashedPassword]
+        // )
+        console.log(user);
+        res.json({ message: 'Student registered successfully' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred' });
+    }
+}
 
 module.exports = {
     // login,
-    signup
+    signup, 
+    test
 }

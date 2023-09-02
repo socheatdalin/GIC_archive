@@ -9,7 +9,7 @@
 
 <body>
         <h1>upload files</h1>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
+        <form action="/student/create" method="POST" enctype="multipart/form-data">
                 <input type="text" name="name" id="name" placeholder="your name">
                 <input type="number" name="student_id" id="student_id" placeholder=" student id">
                 <input type="text" name="supervisor_name" id="supervisor_name" placeholder=" teacher name">
@@ -19,10 +19,15 @@
                 <input type="text" name="descr" id="descr" placeholder="desc">
                 <input type="url" name="GITHub_Url" id="GITHub_Url" placeholder="Giturl">
                 <input type="text" name="year" id="year" placeholder="year">
-                <input type="file" name="pdf" accept=".pdf">
+                <input type="file" name="image" accept="">
+                <!-- <input type="text" name="name" id="name" placeholder="filename">
+                <input type="file" name="pdfFile" accept=".pdf"> -->
                 <button type="submit">Upload PDF</button>
         </form>
-
+        <div>
+                <h1>Display</h1>
+                <div></div>
+        </div>
 </body>
 
 

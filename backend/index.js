@@ -19,6 +19,7 @@ app.use(cors(corsOptions));
 //         res.setHeader('Access-Control-Allow-Credentials', true);
 //         next();
 // });
+app.use('/static/uploads', express.static('uploads'))
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,3 +28,5 @@ app.use('/', require('./routes'))
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log('Listening on port 3001'));
+
+

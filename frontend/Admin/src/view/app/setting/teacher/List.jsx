@@ -58,7 +58,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 const convertToBase64 = (file) => {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
 
@@ -140,7 +140,7 @@ function EnhancedTableHead(props) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
- 
+
   return (
     <thead style={{ backgroundColor: 'tomato' }}>
       <tr>
@@ -148,7 +148,7 @@ function EnhancedTableHead(props) {
           const active = orderBy === headCell.id;
           return (
             <th
-              style={{ textAlign: 'center', backgroundColor: '#23395d', color:'white' }}
+              style={{ textAlign: 'center', backgroundColor: '#23395d', color: 'white' }}
               key={headCell.id}
               aria-sort={
                 active
@@ -202,10 +202,10 @@ function EnhancedTableHead(props) {
   );
 }
 
-  const gender = [
-    { value: 'F', label: 'Female' },
-    { value: 'M', label: 'Male' },
-  ]
+const gender = [
+  { value: 'F', label: 'Female' },
+  { value: 'M', label: 'Male' },
+]
 
 
 const Years = [
@@ -231,35 +231,35 @@ export default function List() {
   var [teacher, setTeacher] = useState([]);
   const [open, setOpen] = useState(false);
   const [openView, setOpenView] = useState(false);
-  const [inputName,setInputName] = useState('');
-  const [inputGender,setInputGender] = useState('');
-  const [inputAddress,setInputAddress] = useState('');
-  const [inputEmail,setInputEmail] = useState('');
-  const [inputPhone,setInputPhone] = useState('');
-  const [inputPassword,setInputPassword] = useState('');
-  const [inputID,setInputID] = useState('')
-  const [inputPhoto,setInputPhoto] = useState('')
+  const [inputName, setInputName] = useState('');
+  const [inputGender, setInputGender] = useState('');
+  const [inputAddress, setInputAddress] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputPhone, setInputPhone] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
+  const [inputID, setInputID] = useState('')
+  const [inputPhoto, setInputPhoto] = useState('')
   const [openEdit, setOpenEdit] = useState(false);
-  const [Name,setName] = useState('');
-  const [Gender,setGender] = useState('');
-  const [Address,setAddress] = useState('');
-  const [Email,setEmail] = useState('');
-  const [Phone,setPhone] = useState('');
-  const [Password,setPassword] = useState('old');
-  const [oldID,set_oldID] = useState('')
-  const [ID,setID] =useState('')
-  const [Photo,setPhoto] = useState('')
+  const [Name, setName] = useState('');
+  const [Gender, setGender] = useState('');
+  const [Address, setAddress] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Phone, setPhone] = useState('');
+  const [Password, setPassword] = useState('old');
+  const [oldID, set_oldID] = useState('')
+  const [ID, setID] = useState('')
+  const [Photo, setPhoto] = useState('')
   const [searchOpen, setSearchOpen] = useState(false)
   const [inputFromYear1, setFromYear1] = useState('');
   const [inputToYear1, setToYear1] = React.useState('');
   const [inputYear, setInputYear] = React.useState('');
   const [openDelete, setOpenDelete] = useState(false);
-  const [deleteID, setDeleteID] =useState('');
+  const [deleteID, setDeleteID] = useState('');
 
   const handleCloseDelete = () => {
     setOpenDelete(false)
-   }
-  
+  }
+
   const onDeleteModalOpen = async (id) => {
     setDeleteID(id)
     setOpenDelete(true)
@@ -267,27 +267,27 @@ export default function List() {
 
   const handleSearch = (e) => {
     // console.log(search)
-    axios.post("http://localhost:3000/admin/search/teacher",{search:e.target.value},{ withCredentials: true })
-    .then((result) => {
-      setTeacher(result.data.results)
+    axios.post("http://localhost:3000/admin/search/teacher", { search: e.target.value }, { withCredentials: true })
+      .then((result) => {
+        setTeacher(result.data.results)
       })
-    .catch(error => console.log(error));
+      .catch(error => console.log(error));
   }
 
-  const handleSort = (fromYear,toYear,Year) => {
-    axios.post("http://localhost:3000/admin/sort/teacher", {fromYear: fromYear, toYear: toYear, Year: Year},{ withCredentials: true })
-    .then((result) => {
-      setTeacher(result.data.results)
+  const handleSort = (fromYear, toYear, Year) => {
+    axios.post("http://localhost:3000/admin/sort/teacher", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
+      .then((result) => {
+        setTeacher(result.data.results)
       })
-    .catch(error => console.log(error));
+      .catch(error => console.log(error));
   }
 
   const handleDelete = async () => {
-    axios.get("http://localhost:3000/admin/delete/teacher/"+ deleteID,{ withCredentials: true })
-    .then((result) => {
-      window.location.replace('/teacher/list')
+    axios.get("http://localhost:3000/admin/delete/teacher/" + deleteID, { withCredentials: true })
+      .then((result) => {
+        window.location.replace('/teacher/list')
       })
-    .catch(error => console.log(error));
+      .catch(error => console.log(error));
   }
 
   useEffect(() => {
@@ -297,24 +297,24 @@ export default function List() {
 
   const handleSelectYear = (e) => {
     setInputYear(e.value)
-    handleSort(inputFromYear1,inputToYear1,e.value)
+    handleSort(inputFromYear1, inputToYear1, e.value)
   }
 
   const handleFromYear = (e) => {
     setFromYear1(e.value)
-    handleSort(e.value,inputToYear1,inputYear)
+    handleSort(e.value, inputToYear1, inputYear)
   }
 
   const handleToYear = (e) => {
     setToYear1(e.value)
-    handleSort(inputFromYear1,e.value,inputYear)
+    handleSort(inputFromYear1, e.value, inputYear)
   }
 
 
   const handlePassword = async (e) => {
     setPassword(e.target.value)
   }
-  
+
   const handleInputName = async (e) => {
     setInputName(e.target.value)
   }
@@ -324,7 +324,7 @@ export default function List() {
   }
 
   const handleSelectGender = async (event) => {
-      setInputGender(event);
+    setInputGender(event);
   };
 
   const handleInputEmail = async (e) => {
@@ -356,7 +356,7 @@ export default function List() {
   const handleGender = async (event) => {
     setGender(event.value);
   };
-  
+
   const handleID = async (e) => {
     setID(e.target.value)
   }
@@ -372,104 +372,104 @@ export default function List() {
   const handlePhone = async (e) => {
     setPhone(e.target.value)
   }
-  
+
   const handleEdit = async (teacher_id) => {
     console.log(teacher_id)
-    await axios.get("http://localhost:3000/teacher/update/"+teacher_id,{ withCredentials: true })
-        .then((result) => {
-            setAddress(result.data.results[0].address)
-            setEmail(result.data.results[0].email)
-            setName(result.data.results[0].name)
-            setID(result.data.results[0].id)
-            set_oldID(result.data.results[0].id)
-            setGender(result.data.results[0].gender)
-            setPhone(result.data.results[0].phone)
-            setPhoto(result.data.results[0].photo)
-          })
-        .catch(error => console.log(error));
+    await axios.get("http://localhost:3000/teacher/update/" + teacher_id, { withCredentials: true })
+      .then((result) => {
+        setAddress(result.data.results[0].address)
+        setEmail(result.data.results[0].email)
+        setName(result.data.results[0].name)
+        setID(result.data.results[0].id)
+        set_oldID(result.data.results[0].id)
+        setGender(result.data.results[0].gender)
+        setPhone(result.data.results[0].phone)
+        setPhoto(result.data.results[0].photo)
+      })
+      .catch(error => console.log(error));
     setOpenEdit(true);
   }
-const [courses,setCoures] = React.useState([])
-const [years,setYears] = React.useState([])
-const [froms,setFroms] = React.useState([])
-const [tos,setTos] = React.useState([])
-// function courseTable() {
-//   return (
-//     <div style={{border:'1px solid silver',boxShadow:'2px 2px 2px gray',margin:'auto',marginTop:'-10px', padding: '20px'}}>
-//       <span>COURSETABLE</span>
-//       <Grid templateColumns="repeat(4,2fr)" gap="2">
-//         <VStack spacing="5" style={{margin:'auto'}}>
-//           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>Course</div>
-//           {(
-//             courses.map((date,index) =>
-//             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
-//               <div>
-//                 {date}
-//               </div>
-//             </span>
-//             ))
-//           }
-//         </VStack>
-//         <VStack spacing="5" style={{margin:'auto'}}>
-//           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>Year</div>
-//           {(
-//             years.map((year) =>
-//             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
-//               <div>
-//                 {year}
-//               </div>
-//             </span>
-//             ))
-//           }
-//         </VStack>
-//         <VStack spacing="5" style={{margin:'auto'}}>
-//           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>From</div>
-//           {(
-//             froms.map((room,index) =>
-//             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
-//               <div>
-//                 {room}
-//               </div>
-//             </span>
-//             ))
-//           }
-//         </VStack>
-//         <VStack spacing="5" style={{margin:'auto'}}>
-//           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>To</div>
-//           {(
-//             tos.map((group,index) =>
-//             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
-//               <div>
-//                 {group}
-//               </div>
-//             </span>
-//             ))
-//           }
-//         </VStack>
-//       </Grid>
-//     </div>
-//   )
-// }
+  const [courses, setCoures] = React.useState([])
+  const [years, setYears] = React.useState([])
+  const [froms, setFroms] = React.useState([])
+  const [tos, setTos] = React.useState([])
+  // function courseTable() {
+  //   return (
+  //     <div style={{border:'1px solid silver',boxShadow:'2px 2px 2px gray',margin:'auto',marginTop:'-10px', padding: '20px'}}>
+  //       <span>COURSETABLE</span>
+  //       <Grid templateColumns="repeat(4,2fr)" gap="2">
+  //         <VStack spacing="5" style={{margin:'auto'}}>
+  //           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>Course</div>
+  //           {(
+  //             courses.map((date,index) =>
+  //             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
+  //               <div>
+  //                 {date}
+  //               </div>
+  //             </span>
+  //             ))
+  //           }
+  //         </VStack>
+  //         <VStack spacing="5" style={{margin:'auto'}}>
+  //           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>Year</div>
+  //           {(
+  //             years.map((year) =>
+  //             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
+  //               <div>
+  //                 {year}
+  //               </div>
+  //             </span>
+  //             ))
+  //           }
+  //         </VStack>
+  //         <VStack spacing="5" style={{margin:'auto'}}>
+  //           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>From</div>
+  //           {(
+  //             froms.map((room,index) =>
+  //             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
+  //               <div>
+  //                 {room}
+  //               </div>
+  //             </span>
+  //             ))
+  //           }
+  //         </VStack>
+  //         <VStack spacing="5" style={{margin:'auto'}}>
+  //           <div style={{textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black',backgroundColor: '#23395d', color: 'white'}}>To</div>
+  //           {(
+  //             tos.map((group,index) =>
+  //             <span style={{ margin: '0px',textAlign:'center',paddingTop:'10px', paddingBottom:'10px', width:'120px', border:'1px solid black'}}>
+  //               <div>
+  //                 {group}
+  //               </div>
+  //             </span>
+  //             ))
+  //           }
+  //         </VStack>
+  //       </Grid>
+  //     </div>
+  //   )
+  // }
   const handleView = async (teacher_id) => {
-    await axios.get("http://localhost:3001/teacher/" +teacher_id)
-        .then((result) => {
-            setAddress(result.data[0].address)
-            setEmail(result.data[0].email)
-            setName(result.data[0].fullname)
-            setID(result.data[0].id)
-            setGender(result.data[0].gender)
-            setPhone(result.data[0].phone)
-          })
-        .catch(error => console.log(error));
+    await axios.get("http://localhost:3001/teacher/" + teacher_id)
+      .then((result) => {
+        setAddress(result.data[0].address)
+        setEmail(result.data[0].email)
+        setName(result.data[0].fullname)
+        setID(result.data[0].id)
+        setGender(result.data[0].gender)
+        setPhone(result.data[0].phone)
+      })
+      .catch(error => console.log(error));
     setOpenView(true);
   }
 
   const handleSubmit = async () => {
-    axios.post("http://localhost:3001/signUp/teacher",{address:inputAddress, name: inputName, email: inputEmail,gender: inputGender.value,id: inputID,password: inputPassword, phone: inputPhone, photo: inputPhoto})
-        .then((result) => {
-          window.location.replace('/teacher/list')
-          })
-        .catch(error => console.log(error));
+    axios.post("http://localhost:3001/signUp/teacher", { address: inputAddress, name: inputName, email: inputEmail, gender: inputGender.value, id: inputID, password: inputPassword, phone: inputPhone, photo: inputPhoto })
+      .then((result) => {
+        window.location.replace('/teacher/list')
+      })
+      .catch(error => console.log(error));
   }
 
   const handleInputPassword = async (e) => {
@@ -483,23 +483,23 @@ const [tos,setTos] = React.useState([])
   };
 
   const handleSubmitEdit = async () => {
-    await axios.post("http://localhost:3000/admin/update/teacher",{address:Address, name: Name, email: Email,old_id: oldID,gender: Gender, new_id: ID,password: Password, phone: Phone, photo: Photo},{ withCredentials: true })
-               .then((result) => {
-                    console.log("hello")
-                    setOpenEdit(false);
-                    window.location.replace('/teacher/list')
-                })
-               .catch(error => console.log(error));
-        }
+    await axios.post("http://localhost:3000/admin/update/teacher", { address: Address, name: Name, email: Email, old_id: oldID, gender: Gender, new_id: ID, password: Password, phone: Phone, photo: Photo }, { withCredentials: true })
+      .then((result) => {
+        console.log("hello")
+        setOpenEdit(false);
+        window.location.replace('/teacher/list')
+      })
+      .catch(error => console.log(error));
+  }
 
   const teachers = async () => {
-      axios.get("http://localhost:3001/teacher/all")
-        .then((result) => {
-          setTeacher(result.data)
-          })
-        .catch(error => console.log(error));
+    axios.get("http://localhost:3001/teacher/all")
+      .then((result) => {
+        setTeacher(result.data)
+      })
+      .catch(error => console.log(error));
   };
-  
+
   const rows = teacher;
   const [toYear, setToYear] = React.useState([]);
   const [fromYear, setFromYear] = React.useState([]);
@@ -558,376 +558,376 @@ const [tos,setTos] = React.useState([])
   };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
-  
+
   return (
-      <Flex flexDir="column" bg="white" borderRadius="10px" h="full">
-        {/* Popup */}
-        <Box>
+    <Flex flexDir="column" bg="white" borderRadius="10px" h="full">
+      {/* Popup */}
+      <Box>
         <ModalDelete
-        aria-labelledby="modal-title"
-        aria-describedby="modal-desc"
-        open={openDelete}
-        onClose={() => setOpenDelete(false)}
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-      >
-        <Sheet
-          variant="outlined"
-          sx={{
-            width: 350,
-            height: 170,
-            borderRadius: 'md',
-            p: 3,
-            boxShadow: 'lg',
-            marginTop: '-100'
-          }}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-desc"
+          open={openDelete}
+          onClose={() => setOpenDelete(false)}
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
         >
-          <Flex style={{marginTop:'20px',justifyContent:"space-between", textAlign:"center", margin:'auto', alignItems:"center"}}>
-            <p> Are you sure you want to delete this teacher?</p>
-          </Flex>
-          <div style={{justifyConten:"space-between",textAlign:"center", alignItems:"center"}}>
-            <Button sx={{ mr: '10px',mt:'20px', backgroundColor:'#CD3700', color:'white'}} onClick={handleDelete}>
+          <Sheet
+            variant="outlined"
+            sx={{
+              width: 350,
+              height: 170,
+              borderRadius: 'md',
+              p: 3,
+              boxShadow: 'lg',
+              marginTop: '-100'
+            }}
+          >
+            <Flex style={{ marginTop: '20px', justifyContent: "space-between", textAlign: "center", margin: 'auto', alignItems: "center" }}>
+              <p> Are you sure you want to delete this teacher?</p>
+            </Flex>
+            <div style={{ justifyConten: "space-between", textAlign: "center", alignItems: "center" }}>
+              <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#CD3700', color: 'white' }} onClick={handleDelete}>
                 Delete
               </Button>
-              <Button sx={{ mr: '10px',mt:'20px', backgroundColor:'#23395d', color:'white'}} onClick={handleCloseDelete} variant="solid">
+              <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d', color: 'white' }} onClick={handleCloseDelete} variant="solid">
                 Cancel
-            </Button>
-          </div>
-        </Sheet>
-      </ModalDelete>
-          <Modal
-            aria-labelledby="modal-title"
-            aria-describedby="modal-desc"
-            open={open}
-            onClose={() => setOpen(false)}
+              </Button>
+            </div>
+          </Sheet>
+        </ModalDelete>
+        <Modal
+          aria-labelledby="modal-title"
+          aria-describedby="modal-desc"
+          open={open}
+          onClose={() => setOpen(false)}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Sheet
+            variant="outlined"
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              width: 700,
+              height: 400,
+              borderRadius: 'md',
+              p: 3,
+              boxShadow: 'lg',
             }}
           >
-            <Sheet
+            <ModalClose
               variant="outlined"
               sx={{
-                width: 700,
-                height: 400,
-                borderRadius: 'md',
-                p: 3,
-                boxShadow: 'lg',
+                top: 'calc(-1/4 * var(--IconButton-size))',
+                right: 'calc(-1/4 * var(--IconButton-size))',
+                boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
+                borderRadius: '50%',
+                bgcolor: 'background.body',
               }}
+            />
+            <Flex
+              mb="10px"
+              justifyContent="space-between"
+              alignItems="center"
             >
-              <ModalClose
-                variant="outlined"
-                sx={{
-                  top: 'calc(-1/4 * var(--IconButton-size))',
-                  right: 'calc(-1/4 * var(--IconButton-size))',
-                  boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
-                  borderRadius: '50%',
-                  bgcolor: 'background.body',
-                }}
-              />
-              <Flex
-                mb="10px"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Typography level="h4">Create Teacher</Typography>
-                <Button onClick={handleSubmit} sx={{ mr: '10px', backgroundColor: '#23395d', color:'white'}} variant="solid">
-                  Create
-                </Button>
-              </Flex>
-              <Grid templateColumns="repeat(4,1fr)  " gap="2">
-                <VStack spacing="3">
-                  <FormControl sx={{ width: '300px' }}>
-                    <FormLabel required>Name</FormLabel>
-                    <Input
-                      placeholder="Please enter name"
-                      defaultValue=''
-                      variant="outlined"
-                      color="neutral"
-                      onChange={handleInputName}
-                    />
-                    <FormLabel required>Gender</FormLabel>
-                    <SELECT_OPTIONS
-                      variant="outlined"
-                      color="neutral"
-                      placeholder="Select gender"
-                      onChange={handleSelectGender}
-                      defaultValue={[gender[4], gender[5]]}
-                      options={gender}
-                    />
-                    <FormLabel required>ID</FormLabel>
-                    <Input
-                      placeholder="Please enter id"
-                      variant="outlined"
-                      defaultValue=''
-                      color="neutral"
-                      onChange={handleInputID}
-                    />
-                    <FormLabel required>Email</FormLabel>
-                    <Input
-                      placeholder="Please enter email"
-                      variant="outlined"
-                      defaultValue=''
-                      color="neutral"
-                      onChange={handleInputEmail}
-                    />
-                  </FormControl>
-                </VStack>
-                <VStack spacing="3" ml="40px">
-                  <FormControl sx={{ width: '300px' }}>
-                    <FormLabel required>Address</FormLabel>
-                    <Input
-                      placeholder="Please enter address"
-                      variant="outlined"
-                      color="neutral"
-                      onChange={handleInputAddress}
-                    />
-                    <FormLabel required>Phone Number</FormLabel>
-                    <Input
-                      placeholder="Please enter phone number"
-                      variant="outlined"
-                      defaultValue=''
-                      color="neutral"
-                      onChange={handleInputPhone}
-                    />
-                    <FormLabel required>Password</FormLabel>
-                    <Input
-                      startDecorator={<KeyRoundedIcon />}
-                      placeholder="Password"
-                      type="password"
-                      defaultValue=''
-                      endDecorator={
-                        <IconButton color="neutral">
-                          <VisibilityRoundedIcon />
-                        </IconButton>
-                      }
-                      onChange={handleInputPassword}
-                    />
-                  </FormControl>
-                  <Grid sx={{mt:10,}}>
-                    <input style={{marginTop: '20px', marginBottom: '20px', marginLeft:'3px'}} type="file" onChange={handleInputPhoto}/>
+              <Typography level="h4">Create Teacher</Typography>
+              <Button onClick={handleSubmit} sx={{ mr: '10px', backgroundColor: '#23395d', color: 'white' }} variant="solid">
+                Create
+              </Button>
+            </Flex>
+            <Grid templateColumns="repeat(4,1fr)  " gap="2">
+              <VStack spacing="3">
+                <FormControl sx={{ width: '300px' }}>
+                  <FormLabel required>Name</FormLabel>
+                  <Input
+                    placeholder="Please enter name"
+                    defaultValue=''
+                    variant="outlined"
+                    color="neutral"
+                    onChange={handleInputName}
+                  />
+                  <FormLabel required>Gender</FormLabel>
+                  <SELECT_OPTIONS
+                    variant="outlined"
+                    color="neutral"
+                    placeholder="Select gender"
+                    onChange={handleSelectGender}
+                    defaultValue={[gender[4], gender[5]]}
+                    options={gender}
+                  />
+                  <FormLabel required>ID</FormLabel>
+                  <Input
+                    placeholder="Please enter id"
+                    variant="outlined"
+                    defaultValue=''
+                    color="neutral"
+                    onChange={handleInputID}
+                  />
+                  <FormLabel required>Email</FormLabel>
+                  <Input
+                    placeholder="Please enter email"
+                    variant="outlined"
+                    defaultValue=''
+                    color="neutral"
+                    onChange={handleInputEmail}
+                  />
+                </FormControl>
+              </VStack>
+              <VStack spacing="3" ml="40px">
+                <FormControl sx={{ width: '300px' }}>
+                  <FormLabel required>Address</FormLabel>
+                  <Input
+                    placeholder="Please enter address"
+                    variant="outlined"
+                    color="neutral"
+                    onChange={handleInputAddress}
+                  />
+                  <FormLabel required>Phone Number</FormLabel>
+                  <Input
+                    placeholder="Please enter phone number"
+                    variant="outlined"
+                    defaultValue=''
+                    color="neutral"
+                    onChange={handleInputPhone}
+                  />
+                  <FormLabel required>Password</FormLabel>
+                  <Input
+                    startDecorator={<KeyRoundedIcon />}
+                    placeholder="Password"
+                    type="password"
+                    defaultValue=''
+                    endDecorator={
+                      <IconButton color="neutral">
+                        <VisibilityRoundedIcon />
+                      </IconButton>
+                    }
+                    onChange={handleInputPassword}
+                  />
+                </FormControl>
+                <Grid sx={{ mt: 10, }}>
+                  <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" onChange={handleInputPhoto} />
+                </Grid>
+              </VStack>
+            </Grid>
+          </Sheet>
+        </Modal>
+      </Box>
+
+      <Box>
+        <ModalEdit
+          aria-labelledby="modal-title"
+          aria-describedby="modal-desc"
+          open={openEdit}
+          onClose={() => setOpenEdit(false)}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Sheet
+            variant="outlined"
+            sx={{
+              width: 700,
+              height: 400,
+              borderRadius: 'md',
+              p: 3,
+              boxShadow: 'lg',
+            }}
+          >
+            <ModalClose
+              variant="outlined"
+              sx={{
+                top: 'calc(-1/4 * var(--IconButton-size))',
+                right: 'calc(-1/4 * var(--IconButton-size))',
+                boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
+                borderRadius: '50%',
+                bgcolor: 'background.body',
+              }}
+            />
+            <Flex
+              mb="10px"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography level="h4">Update Teacher</Typography>
+              <Button onClick={handleSubmitEdit} sx={{ mr: '10px', background: '#23395d' }} variant="solid">
+                Update
+              </Button>
+            </Flex>
+            <Grid templateColumns="repeat(4,1fr)  " gap="2">
+              <VStack spacing="3">
+                <FormControl sx={{ width: '300px' }}>
+                  <FormLabel required>Name</FormLabel>
+                  <Input
+                    placeholder="Please enter name"
+                    defaultValue=''
+                    variant="outlined"
+                    color="neutral"
+                    value={Name}
+                    onChange={handleName}
+                  />
+                  <FormLabel required>Gender</FormLabel>
+                  <SELECT_OPTIONS
+                    variant="outlined"
+                    color="neutral"
+                    placeholder="Select gender"
+                    onChange={handleGender}
+                    defaultValue={[{ label: Gender, value: Gender }]}
+                    options={gender}
+                  />
+                  <FormLabel required>ID</FormLabel>
+                  <Input
+                    placeholder="Please enter id"
+                    variant="outlined"
+                    defaultValue=''
+                    color="neutral"
+                    value={ID}
+                    onChange={handleID}
+                  />
+                  <FormLabel required>Email</FormLabel>
+                  <Input
+                    placeholder="Please enter email"
+                    variant="outlined"
+                    defaultValue=''
+                    color="neutral"
+                    value={Email}
+                    onChange={handleEmail}
+                  />
+                </FormControl>
+              </VStack>
+              <VStack spacing="3" ml="40px">
+                <FormControl sx={{ width: '300px' }}>
+                  <FormLabel required>Address</FormLabel>
+                  <Input
+                    placeholder="Please enter address"
+                    variant="outlined"
+                    color="neutral"
+                    value={Address}
+                    onChange={handleAddress}
+                  />
+                  <FormLabel required>Phone Number</FormLabel>
+                  <Input
+                    placeholder="Please enter phone number"
+                    variant="outlined"
+                    defaultValue=''
+                    color="neutral"
+                    value={Phone}
+                    onChange={handlePhone}
+                  />
+                  <FormLabel required>Password</FormLabel>
+                  <Input
+                    startDecorator={<KeyRoundedIcon />}
+                    placeholder="Password"
+                    type="password"
+                    defaultValue=''
+                    endDecorator={
+                      <IconButton color="neutral">
+                        <VisibilityRoundedIcon />
+                      </IconButton>
+                    }
+                    onChange={handlePassword}
+                  />
+                  <Grid sx={{ mt: 10, }}>
+                    <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" onChange={handlePhoto} />
                   </Grid>
-                </VStack>
-              </Grid>
-            </Sheet>
-          </Modal>
-        </Box>
+                </FormControl>
+              </VStack>
+            </Grid>
+          </Sheet>
+        </ModalEdit>
+      </Box>
 
-        <Box>
-          <ModalEdit
-            aria-labelledby="modal-title"
-            aria-describedby="modal-desc"
-            open={openEdit}
-            onClose={() => setOpenEdit(false)}
+      <Box>
+        <ModalView
+          aria-labelledby="modal-title"
+          aria-describedby="modal-desc"
+          open={openView}
+          onClose={() => setOpenView(false)}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Sheet
+            variant="outlined"
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              width: 660,
+              height: 680,
+              borderRadius: 'md',
+              p: 3,
+              boxShadow: 'lg',
+              bgcolor: 'white',
             }}
           >
-            <Sheet
+            <ModalClose
               variant="outlined"
               sx={{
-                width: 700,
-                height: 400,
-                borderRadius: 'md',
-                p: 3,
-                boxShadow: 'lg',
+                top: 'calc(-1/4 * var(--IconButton-size))',
+                right: 'calc(-1/4 * var(--IconButton-size))',
+                boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
+                borderRadius: '50%',
+                bgcolor: '#23395d',
+                color: 'white'
               }}
+            />
+            <Flex
+              mb="10px"
+              justifyContent="space-between"
+              alignItems="center"
             >
-              <ModalClose
-                variant="outlined"
-                sx={{
-                  top: 'calc(-1/4 * var(--IconButton-size))',
-                  right: 'calc(-1/4 * var(--IconButton-size))',
-                  boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
-                  borderRadius: '50%',
-                  bgcolor: 'background.body',
-                }}
-              />
-              <Flex
-                mb="10px"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Typography level="h4">Update Teacher</Typography>
-                <Button onClick={handleSubmitEdit} sx={{ mr: '10px',background:'#23395d'  }} variant="solid">
-                  Update
-                </Button>
-              </Flex>
-              <Grid templateColumns="repeat(4,1fr)  " gap="2">
-                <VStack spacing="3">
-                  <FormControl sx={{ width: '300px' }}>
-                    <FormLabel required>Name</FormLabel>
-                    <Input
-                      placeholder="Please enter name"
-                      defaultValue=''
-                      variant="outlined"
-                      color="neutral"
-                      value={Name}
-                      onChange={handleName}
-                    />
-                    <FormLabel required>Gender</FormLabel>
-                    <SELECT_OPTIONS
-                      variant="outlined"
-                      color="neutral"
-                      placeholder="Select gender"
-                      onChange={handleGender}
-                      defaultValue={[{label:Gender, value: Gender}]}
-                      options={gender}
-                    />
-                    <FormLabel required>ID</FormLabel>
-                    <Input
-                      placeholder="Please enter id"
-                      variant="outlined"
-                      defaultValue=''
-                      color="neutral"
-                      value={ID}
-                      onChange={handleID}
-                    />
-                    <FormLabel required>Email</FormLabel>
-                    <Input
-                      placeholder="Please enter email"
-                      variant="outlined"
-                      defaultValue=''
-                      color="neutral"
-                      value={Email}
-                      onChange={handleEmail}
-                    />
-                  </FormControl>
-                </VStack>
-                <VStack spacing="3" ml="40px">
-                  <FormControl sx={{ width: '300px' }}>
-                    <FormLabel required>Address</FormLabel>
-                    <Input
-                      placeholder="Please enter address"
-                      variant="outlined"
-                      color="neutral"
-                      value={Address}
-                      onChange={handleAddress}
-                    />
-                    <FormLabel required>Phone Number</FormLabel>
-                    <Input
-                      placeholder="Please enter phone number"
-                      variant="outlined"
-                      defaultValue=''
-                      color="neutral"
-                      value={Phone}
-                      onChange={handlePhone}
-                    />
-                    <FormLabel required>Password</FormLabel>
-                    <Input
-                      startDecorator={<KeyRoundedIcon />}
-                      placeholder="Password"
-                      type="password"
-                      defaultValue=''
-                      endDecorator={
-                        <IconButton color="neutral">
-                          <VisibilityRoundedIcon />
-                        </IconButton>
-                      }
-                      onChange={handlePassword}
-                    />
-                    <Grid sx={{mt:10,}}>
-                      <input style={{marginTop: '20px', marginBottom: '20px', marginLeft:'3px'}} type="file" onChange={handlePhoto}/>
-                    </Grid>
-                  </FormControl>
-                </VStack>
-              </Grid>
-            </Sheet>
-          </ModalEdit>
-        </Box>
-
-        <Box>
-          <ModalView
-            aria-labelledby="modal-title"
-            aria-describedby="modal-desc"
-            open={openView}
-            onClose={() => setOpenView(false)}
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Sheet
-              variant="outlined"
-              sx={{
-                width: 660,
-                height: 680,
-                borderRadius: 'md',
-                p: 3,
-                boxShadow: 'lg',
-                bgcolor: 'white',
-              }}
-            >
-              <ModalClose
-                variant="outlined"
-                sx={{
-                  top: 'calc(-1/4 * var(--IconButton-size))',
-                  right: 'calc(-1/4 * var(--IconButton-size))',
-                  boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
-                  borderRadius: '50%',
-                  bgcolor: '#23395d',
-                  color:'white'
-                }}
-              />
-              <Flex
-                mb="10px"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Typography level="h4">View Teacher</Typography>
-              </Flex>
-              <Grid  templateColumns="repeat(2,1fr)  " gap="1">
-                <VStack spacing="1">
-                  <span style={{marginLeft:'70px' , marginTop:'40px', width: 150, height: 150, border:'1px  solid #23395d', borderRadius: '3px', }}>
-                    <img style={{width:'100%', height:'100%'}} src={Photo} />
-                  </span>
-                </VStack>
-                <VStack>
-                      <div style={{ paddingLeft: '40px',paddingTop:'20px' ,width: 320, height: 240, borderRadius: '3px' }}>
-                          {/* <div>
+              <Typography level="h4">View Teacher</Typography>
+            </Flex>
+            <Grid templateColumns="repeat(2,1fr)  " gap="1">
+              <VStack spacing="1">
+                <span style={{ marginLeft: '70px', marginTop: '40px', width: 150, height: 150, border: '1px  solid #23395d', borderRadius: '3px', }}>
+                  <img style={{ width: '100%', height: '100%' }} src={Photo} />
+                </span>
+              </VStack>
+              <VStack>
+                <div style={{ paddingLeft: '40px', paddingTop: '20px', width: 320, height: 240, borderRadius: '3px' }}>
+                  {/* <div>
                             <b><span style={{marginTop:'-10px', marginLeft:'80px', color:'#517388',fontSize:'20px',textTransform:'upperCase'}}>{Name}</span></b>
                           </div>
                           <div>
                             <span style={{marginLeft:'80px',color:'#1E3A4C'}}>{ID}</span>
                           </div> */}
-                          <div style={{marginTop:'10px'}}>
-                            <span><b>Name : </b></span>
-                            <span style={{marginLeft:'33px', color:'#517388'}}>{Name}</span>
-                          </div>
-                          <div style={{marginTop:'10px'}}>
-                            <span><b>ID  : </b></span>
-                            <span style={{marginLeft:'68px', color:'#517388'}}>{ID}</span>
-                          </div>
-                          <div style={{marginTop:'10px'}}>
-                            <span><b>Gender : </b></span>
-                            <span style={{marginLeft:'33px', color:'#517388'}}>{Gender}</span>
-                          </div>
-                          <div style={{marginTop:'10px'}}>
-                            <span><b>Email  : </b></span>
-                            <span style={{marginLeft:'48px', color:'#517388'}}>{Email}</span>
-                          </div>
-                          <div style={{marginTop:'10px'}}>
-                            <span><b>Address  : </b></span>
-                            <span style={{marginLeft:'28px', color:'#517388'}}>{Address}</span>
-                          </div>
-                          <div style={{marginTop:'10px'}}>
-                            <span><b>Phone  : </b></span>
-                            <span style={{marginLeft:'40px', color:'#517388'}}>{Phone}</span>
-                          </div>
-                      </div>
-                      <div style={{position: 'absolute', top:'330px', left:'68px'}}>
-                        {/* {courseTable()} */}
-                      </div>
-                </VStack>
-              </Grid>
-            </Sheet>
-          </ModalView>
-        </Box>
+                  <div style={{ marginTop: '10px' }}>
+                    <span><b>Name : </b></span>
+                    <span style={{ marginLeft: '33px', color: '#517388' }}>{Name}</span>
+                  </div>
+                  <div style={{ marginTop: '10px' }}>
+                    <span><b>ID  : </b></span>
+                    <span style={{ marginLeft: '68px', color: '#517388' }}>{ID}</span>
+                  </div>
+                  <div style={{ marginTop: '10px' }}>
+                    <span><b>Gender : </b></span>
+                    <span style={{ marginLeft: '33px', color: '#517388' }}>{Gender}</span>
+                  </div>
+                  <div style={{ marginTop: '10px' }}>
+                    <span><b>Email  : </b></span>
+                    <span style={{ marginLeft: '48px', color: '#517388' }}>{Email}</span>
+                  </div>
+                  <div style={{ marginTop: '10px' }}>
+                    <span><b>Address  : </b></span>
+                    <span style={{ marginLeft: '28px', color: '#517388' }}>{Address}</span>
+                  </div>
+                  <div style={{ marginTop: '10px' }}>
+                    <span><b>Phone  : </b></span>
+                    <span style={{ marginLeft: '40px', color: '#517388' }}>{Phone}</span>
+                  </div>
+                </div>
+                <div style={{ position: 'absolute', top: '330px', left: '68px' }}>
+                  {/* {courseTable()} */}
+                </div>
+              </VStack>
+            </Grid>
+          </Sheet>
+        </ModalView>
+      </Box>
 
-        <Grid
+      <Grid
         as="form"
         templateColumns="auto max-content"
         p="3"
@@ -975,7 +975,7 @@ const [tos,setTos] = React.useState([])
               >
               </SELECT_OPTIONS>
             </FormControl>
-            <FormControl sx={{ width: '200px'}}>
+            <FormControl sx={{ width: '200px' }}>
               <SELECT_OPTIONS
                 onChange={handleSelectYear}
                 placeholder="Select Year"
@@ -984,26 +984,26 @@ const [tos,setTos] = React.useState([])
               >
               </SELECT_OPTIONS>
             </FormControl>
-           <span>
-            <Input
+            <span>
+              <Input
                 sx={{
                   '&:hover': { '& svg': { opacity: 1 } },
-                  width: '200px',  left: '910px', position:"absolute", transition: 'width 3s'
+                  width: '200px', left: '910px', position: "absolute", transition: 'width 3s'
                 }}
                 placeholder="search ..."
                 variant="outlined"
                 color="neutral"
                 onChange={handleSearch}
-              /> 
-              
+              />
+
             </span>
             <Button
-            onClick={() =>
-              handleSearch()
-            }
-            style={{ backgroundColor: '#23395d' }}
-            sx={{ position:'absolute',right:'105px' }}
-            variant="solid"
+              onClick={() =>
+                handleSearch()
+              }
+              style={{ backgroundColor: '#23395d' }}
+              sx={{ position: 'absolute', right: '105px' }}
+              variant="solid"
             // onClick={() => history.push(`${parentUrl}/add`)}
             >
               <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
@@ -1011,7 +1011,7 @@ const [tos,setTos] = React.useState([])
           </Flex>
           <Grid h="42px" mr="10px">
             <Button
-              sx={{ width: '75px',backgroundColor: '#23395d' }}
+              sx={{ width: '75px', backgroundColor: '#23395d' }}
               variant="solid"
               onClick={() => setOpen(true)}
             >
@@ -1031,157 +1031,157 @@ const [tos,setTos] = React.useState([])
           marginBottom: '20px'
         }}
       >
-          <Sheet
-              sx={{
-                mt: '10px',
-                ml:1,
-                width: '99%',
-                height: '100%',
-                borderRadius: 'sm',
-              }}
-            >
-              <Table aria-labelledby="tableTitle" hoverRow>
-                <EnhancedTableHead
-                  // numSelected={selected.length}
-                  order={order}
-                  orderBy={orderBy}
-                  onSelectAllClick={handleSelectAllClick}
-                  onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
-                />
-                <tbody>
-                  {stableSort(rows, getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => {
-                      const isItemSelected = isSelected(row.name);
-                      return (
-                        <tr
-                          onClick={(event) => handleClick(event, row.name)}
-                          role="checkbox"
-                          aria-checked={isItemSelected}
-                          tabIndex={-1}
-                          spacing={2}
-                          style={{
-                            textAlign: 'center',
-                          }}
-                          key={row.name}
-                        >
-                          <td>{row.id}</td>
-                          <td>{row.fullname}</td>
-                          <td>{row.gender}</td>
-                          <td>{row.email}</td>
-                          <td>{row.phone}</td>
-                          <td>{row.address}</td>
-                          <td>
-                          <Center spacing={2} gap="6">
-                            {/* {console.log(id)} */}
-                            <IconButton
-                              onClick={() => 
-                                handleView(row.id)
-                              }
-                              variant="ghost"
-                              color="#78909c"
-                              cursor="pointer"
-                              bg="none"
-                              size="sm"
-                              border="none"
-                              icon={<MdRemoveRedEye color="#4682B4" size="1.3rem" />}
-                            />
-
-                            <IconButton
-                              variant="ghost"
-                              cursor="pointer"
-                              color="#78909c"
-                              border="none"
-                              bg="none"
-                              size="sm"
-                              icon={<HiOutlinePencilAlt color="#03A89E" size="1.3rem" />}
-                                onClick={() => {
-                                  handleEdit(row.id)
-                                }
-                              }
-                            />
-                            <IconButton
-                              onClick={() => {
-                                onDeleteModalOpen(row.id);
-                              }}
-                              size="sm"
-                              variant="ghost"
-                              cursor="pointer"
-                              border="none"
-                              bg="none"
-                              color="#78909c"
-                              icon={<HiOutlineTrash color="#CD3700" size="1.3rem" />}
-                            />
-                          </Center>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan={7}>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 2,
-                          justifyContent: 'flex-end',
-                        }}
-                      >
-                        <FormControl orientation="horizontal" size="sm">
-                          <FormLabel>Rows per page:</FormLabel>
-                          <Select
-                            onChange={handleChangeRowsPerPage}
-                            value={rowsPerPage}
-                          >
-                            <Option value={5}>5</Option>
-                            <Option value={10}>10</Option>
-                            <Option value={25}>25</Option>
-                          </Select>
-                        </FormControl>
-                        <Typography textAlign="center" sx={{ minWidth: 80 }}>
-                          {labelDisplayedRows({
-                            from:
-                              rows.length === 0 ? 0 : page * rowsPerPage + 1,
-                            to: getLabelDisplayedRowsTo(),
-                            count: rows.length === -1 ? -1 : rows.length,
-                          })}
-                        </Typography>
-                        <Box sx={{ display: 'flex', gap: 1 }}>
+        <Sheet
+          sx={{
+            mt: '10px',
+            ml: 1,
+            width: '99%',
+            height: '100%',
+            borderRadius: 'sm',
+          }}
+        >
+          <Table aria-labelledby="tableTitle" hoverRow>
+            <EnhancedTableHead
+              // numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            <tbody>
+              {stableSort(rows, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.name);
+                  return (
+                    <tr
+                      onClick={(event) => handleClick(event, row.name)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      spacing={2}
+                      style={{
+                        textAlign: 'center',
+                      }}
+                      key={row.name}
+                    >
+                      <td>{row.id}</td>
+                      <td>{row.fullname}</td>
+                      <td>{row.gender}</td>
+                      <td>{row.email}</td>
+                      <td>{row.phone}</td>
+                      <td>{row.address}</td>
+                      <td>
+                        <Center spacing={2} gap="6">
+                          {/* {console.log(id)} */}
                           <IconButton
-                            size="sm"
-                            color="neutral"
-                            variant="outlined"
-                            disabled={page === 0}
-                            onClick={() => handleChangePage(page - 1)}
-                            sx={{ bgcolor: 'background.surface' }}
-                          >
-                            <KeyboardArrowLeftIcon />
-                          </IconButton>
-                          <IconButton
-                            size="sm"
-                            color="neutral"
-                            variant="outlined"
-                            disabled={
-                              rows.length !== -1
-                                ? page >=
-                                  Math.ceil(rows.length / rowsPerPage) - 1
-                                : false
+                            onClick={() =>
+                              handleView(row.id)
                             }
-                            onClick={() => handleChangePage(page + 1)}
-                            sx={{ bgcolor: 'background.surface' }}
-                          >
-                            <KeyboardArrowRightIcon />
-                          </IconButton>
-                        </Box>
-                      </Box>
-                    </td>
-                  </tr>
-                </tfoot>
-              </Table>
-          </Sheet>
+                            variant="ghost"
+                            color="#78909c"
+                            cursor="pointer"
+                            bg="none"
+                            size="sm"
+                            border="none"
+                            icon={<MdRemoveRedEye color="#4682B4" size="1.3rem" />}
+                          />
+
+                          <IconButton
+                            variant="ghost"
+                            cursor="pointer"
+                            color="#78909c"
+                            border="none"
+                            bg="none"
+                            size="sm"
+                            icon={<HiOutlinePencilAlt color="#03A89E" size="1.3rem" />}
+                            onClick={() => {
+                              handleEdit(row.id)
+                            }
+                            }
+                          />
+                          <IconButton
+                            onClick={() => {
+                              onDeleteModalOpen(row.id);
+                            }}
+                            size="sm"
+                            variant="ghost"
+                            cursor="pointer"
+                            border="none"
+                            bg="none"
+                            color="#78909c"
+                            icon={<HiOutlineTrash color="#CD3700" size="1.3rem" />}
+                          />
+                        </Center>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={7}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      justifyContent: 'flex-end',
+                    }}
+                  >
+                    <FormControl orientation="horizontal" size="sm">
+                      <FormLabel>Rows per page:</FormLabel>
+                      <Select
+                        onChange={handleChangeRowsPerPage}
+                        value={rowsPerPage}
+                      >
+                        <Option value={5}>5</Option>
+                        <Option value={10}>10</Option>
+                        <Option value={25}>25</Option>
+                      </Select>
+                    </FormControl>
+                    <Typography textAlign="center" sx={{ minWidth: 80 }}>
+                      {labelDisplayedRows({
+                        from:
+                          rows.length === 0 ? 0 : page * rowsPerPage + 1,
+                        to: getLabelDisplayedRowsTo(),
+                        count: rows.length === -1 ? -1 : rows.length,
+                      })}
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                      <IconButton
+                        size="sm"
+                        color="neutral"
+                        variant="outlined"
+                        disabled={page === 0}
+                        onClick={() => handleChangePage(page - 1)}
+                        sx={{ bgcolor: 'background.surface' }}
+                      >
+                        <KeyboardArrowLeftIcon />
+                      </IconButton>
+                      <IconButton
+                        size="sm"
+                        color="neutral"
+                        variant="outlined"
+                        disabled={
+                          rows.length !== -1
+                            ? page >=
+                            Math.ceil(rows.length / rowsPerPage) - 1
+                            : false
+                        }
+                        onClick={() => handleChangePage(page + 1)}
+                        sx={{ bgcolor: 'background.surface' }}
+                      >
+                        <KeyboardArrowRightIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                </td>
+              </tr>
+            </tfoot>
+          </Table>
+        </Sheet>
       </Box>
     </Flex>
   );

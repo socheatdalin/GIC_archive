@@ -9,8 +9,8 @@ const Upload = async (req, res) => {
         // const student_name = 'SELECT last_name FROM students WHERE id =6 ';
         // const query = 'INSERT INTO pdf_files (filename, mime_type, data) VALUES (?, ?, ?)';
         // const values = [req.file.originalname, pdfMimeType, pdfFileData];
-        const values = [req.body.name, req.body.student_id, req.body.supervisor_name, req.body.title, req.body.field, req.body.company, req.body.descr, req.body.GITHub_Url ,req.body.year, pdfFileData];
-        const query = 'INSERT INTO thesis (student_name, student_id, supervisor_name, title, field, company, descr, GITHub_Url,year, files ) VALUES (?,?,?,?,?,?,?,?,?,?)';
+        const values = [req.body.name, req.body.student_id, req.body.supervisor_name, req.body.title, req.body.field, req.body.company, req.body.descr, req.body.GITHub_Url ,req.body.year, pdfFilePath];
+        const query = 'INSERT INTO thesis (student_name, student_id, supervisor_name, title, field, company, descr, GITHub_Url,year,files) VALUES (?,?,?,?,?,?,?,?,?,?)';
 
         db.query(query, values, (insertErr, results) => {
                 if (insertErr) {
@@ -24,6 +24,16 @@ const Upload = async (req, res) => {
         });
 
 
+}
+const uploadfiles = async (req, res) =>{
+        try {
+                const { originalname, path } = req.file;
+                await db.promise().query('INSERT INTO files (filename,filepath) VALUES (?,?)', [originalname,path]);
+                console.log('PDF file path uploaded and inserted into the database.');
+        } catch (error) {
+                console.error('Error uploading PDF:', error);
+                res.status(500).send('Error uploading PDF file.');
+        }
 }
 const displayThesis = async (req, res) => {
 
@@ -56,7 +66,7 @@ const displayById = async (req, res) => {
                 }
         });
 }
-const SearchbyField = async (req, res) =>{
+const SearchbyField = async (req, res) => {
         const field = req.body.field;
         const selectQuery = 'SELECT * FROM thesis WHERE field= ?';
 
@@ -75,7 +85,7 @@ const SearchbyField = async (req, res) =>{
                 }
         });
 }
-const remove = async (req, res) =>{
+const remove = async (req, res) => {
         const id = req.params.id;
         db.query('DELETE FROM thesis WHERE  id = ?', [id], (err, results) => {
                 if (err) {
@@ -92,5 +102,6 @@ module.exports = {
         displayThesis,
         displayById,
         SearchbyField,
-        remove
+        remove,
+        uploadfiles
 }

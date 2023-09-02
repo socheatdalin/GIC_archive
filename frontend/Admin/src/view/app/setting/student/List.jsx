@@ -396,9 +396,10 @@ export default function List() {
      };
 
      const handleSubmit = async () => {
-          axios.post("http://localhost:3001/signup/student", { address: inputAddress, name: inputName, email: inputEmail, gender: inputGender.value, id: inputID, password: inputPassword, Year: inputYear.value, phone: inputPhone })
+          axios.post("http://localhost:3001/signup/student", { address: inputAddress, fullname: inputName, email: inputEmail, gender: inputGender.value, id: inputID,groupe: inputGroup.value ,password: inputPassword, enrollment_year: inputYear.value, phone: inputPhone, photo: inputPhoto })
                .then((result) => {
-                    window.location.replace('/student/list')
+                    console.log(result);
+                    window.location.replace('/home/student/list')
                })
                .catch(error => console.log(error));
      }
@@ -410,9 +411,10 @@ export default function List() {
                     setEmail(result.data[0].email)
                     setName(result.data[0].fullname)
                     setID(result.data[0].id)
+                    setPhoto(result.data[0].photo)
                     setGender(result.data[0].gender)
                     setPhone(result.data[0].phone)
-                    setYear1(result.data[0].enrollment_year)
+                    setFrom(result.data[0].enrollment_year)
                })
                .catch(error => console.log(error));
           setOpenView(true);
@@ -496,9 +498,9 @@ export default function List() {
 
      const handleSearch = (e) => {
           // console.log(search)
-          axios.post("http://localhost:3001/student/name", { search: e.target.value }, { withCredentials: true })
+          axios.post("http://localhost:3001/student/name", { search: e.target.value })
                .then((result) => {
-                    setStudent(result.data.results)
+                    setStudent(result.data)
                })
                .catch(error => console.log(error));
      }
@@ -989,7 +991,7 @@ export default function List() {
                               templateColumns="15vw max-content"
                               gap="4"
                          >
-                              <Input
+                              {/* <Input
                                    sx={{ width: '80px', ml: '5px' }}
                                    placeholder="Start"
                                    variant="outlined"
@@ -1000,7 +1002,7 @@ export default function List() {
                                    placeholder="end"
                                    variant="outlined"
                                    color="neutral"
-                              />
+                              /> */}
                               <FormControl sx={{ width: '200px' }}>
                                    <SELECT_OPTIONS
                                         onChange={handleFromYear}

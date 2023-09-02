@@ -1,14 +1,6 @@
-import {
-    Center,
-    Flex,
-    Grid,
-    IconButton,
-    InputGroup,
-    VStack,
-    useDisclosure,
-} from '@chakra-ui/react';
-import FileViewer from 'react-file-viewer';
-import makeAnimated from 'react-select/animated';
+import { Center, Flex, Grid, IconButton, VStack } from '@chakra-ui/react';
+// import FileViewer from 'react-file-viewer';
+// import makeAnimated from 'react-select/animated';
 import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import SELECT_OPTIONS from 'react-select';
@@ -28,28 +20,12 @@ import ModalEdit from '@mui/joy/Modal'
 import ModalDelete from '@mui/joy/Modal'
 import ModalCreate from '@mui/joy/Modal'
 import ModalView from '@mui/joy/Modal'
-import {
-    Box,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Modal,
-    ModalClose,
-    Option,
-    Select,
-    Sheet,
-    Typography
-} from '@mui/joy';
-import { Viewer } from '@react-pdf-viewer/core';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'; // install this library
-import { Worker } from '@react-pdf-viewer/core'; // install this library
-
+import { Box, Button, FormControl, FormLabel, Input, Modal, ModalClose, Option, Select, Sheet, Typography } from '@mui/joy';
 function labelDisplayedRows({ from, to, count }) {
     return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
 }
 
-const columnsHeight = 0;
+// const columnsHeight = 0;
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -183,7 +159,7 @@ function getComparator(order, orderBy) {
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const animatedComponents = makeAnimated();
+// const animatedComponents = makeAnimated();
 EnhancedTableHead.propTypes = {
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
@@ -269,13 +245,13 @@ EnhancedTableHead.propTypes = {
     rowCount: PropTypes.number.isRequired,
 };
 
-var countSearch = 1;
-var countClick = 1;
+// var countSearch = 1;
+// var countClick = 1;
 export default function List() {
-    const [openMaterial, setOpenMaterial] = useState(false)
-    const [searchOpen, setSearchOpen] = useState(false)
+    // const [openMaterial, setOpenMaterial] = useState(false)
+    // const [searchOpen, setSearchOpen] = useState(false)
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
-    const [duplicate, setDuplicate] = useState(true)
+
     const [thesis, setThesis] = React.useState([]);
     const [inputID, setInputID] = React.useState('');
     const [openEdit, setOpenEdit] = React.useState(false);
@@ -283,8 +259,8 @@ export default function List() {
     const [openView, setOpenView] = React.useState(false);
     const [openCreate, setOpenCreate] = React.useState(false);
     const [inputName, setInputName] = React.useState('');
-    const [inputFrom, setInputFrom] = React.useState('');
-    const [inputTo, setInputTo] = React.useState('');
+    // const [inputFrom, setInputFrom] = React.useState('');
+    // const [inputTo, setInputTo] = React.useState('');
     const [inputYear, setInputYear] = React.useState('');
     const [inputDesc, setInputDesc] = React.useState('');
     const [inputSemester, setInputSemester] = React.useState('');
@@ -298,17 +274,16 @@ export default function List() {
     const [Desc, setDesc] = React.useState('');
     const [Semester, setSemester] = React.useState('');
     const [Teacher_id, setTeacher_id] = React.useState('');
-    const [oldID, set_oldID] = React.useState('');
+    // const [oldID, set_oldID] = React.useState('');
     const [Type, setType] = React.useState('');
-    const [id, setid] = React.useState('');
+    // const [id, setid] = React.useState('');
     const [Photo, setPhoto] = React.useState('');
-    const [Group, setGroup] = useState([]);
-    const [Group1, setGroup1] = useState([]);
-    const [Room, setRoom] = React.useState([]);
-    const [StartTime, setStartTime] = React.useState([]);
-    const [EndTime, setEndTime] = React.useState([]);
-    const [Date, setDate] = React.useState([]);
-    const [Schedule_id, setSchedule_id] = React.useState([]);
+    // const [Group, setGroup] = useState([]);
+    // const [Group1, setGroup1] = useState([]);
+    // const [Room, setRoom] = React.useState([]);
+    // const [StartTime, setStartTime] = React.useState([]);
+    // const [EndTime, setEndTime] = React.useState([]);
+    // const [Date, setDate] = React.useState([]);
     const [toYear, setToYear] = React.useState([]);
     const [fromYear, setFromYear] = React.useState([]);
     const [deleteID, setDeleteID] = React.useState('');
@@ -317,15 +292,10 @@ export default function List() {
     const [inputYear1, setInputYear1] = React.useState('');
     const [inputFile, setInputFile] = React.useState('')
     const [inputRoom1, setInputRoom1] = React.useState('');
-    const [inputStartTime1, setInputStartTime1] = React.useState('');
-    const [inputEndTime1, setInputEndTime1] = React.useState('');
-    const [inputDate1, setInputDate1] = React.useState('');
+    // const [inputDate1, setInputDate1] = React.useState('');
     const [inputPhoto, setInputPhoto] = React.useState('');
     const [Teacher, setTeacher] = React.useState('');
-    const [Files, setFile] = useState('');
-
-    const [viewPdf, setViewPdf] = useState(null);
-    const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    const [Files, setFile] = React.useState([]);
 
     const handleInputPhoto = async (e) => {
         const base64 = await convertToBase64(e.target.files[0]);
@@ -337,16 +307,12 @@ export default function List() {
         setPhoto(base64)
     }
     const [length, setLength] = useState([])
-    const [index, setIndex] = useState('');
-    const handleDate = async (value, index) => {
-        Date[index] = value
-        setIndex(index)
-        // handleDuplicate(Room[index],StartTime[index],EndTime[index],Date[index],Group[index])
-    }
-    const [search1, setSearch1] = useState('');
-    const searchValue = (e) => {
-        setSearch1(e.target.value)
-    }
+    // const [index, setIndex] = useState('');
+
+    // const [search1, setSearch1] = useState('');
+    // const searchValue = (e) => {
+    //     setSearch1(e.target.value)
+    // }
     const handleSearch = (e) => {
         // console.log(search)
         axios.post("http://localhost:3001/thesis/field", { search: e.target.value }, { withCredentials: true })
@@ -356,19 +322,19 @@ export default function List() {
             .catch(error => console.log(error));
     }
 
-    function handleConfirm(data) {
-        return (
-            <div style={{ position: 'absolute', top: '100px', left: '100px' }}>
-                <button>{data}</button>
-                <button>no</button>
-            </div>
-        )
-    }
+    // function handleConfirm(data) {
+    //     return (
+    //         <div style={{ position: 'absolute', top: '100px', left: '100px' }}>
+    //             <button>{data}</button>
+    //             <button>no</button>
+    //         </div>
+    //     )
+    // }
 
-    function handleMaterial(id) {
-        localStorage.setItem('course_id', id)
-        window.location.replace(`/course/${id}/materials`)
-    }
+    // function handleMaterial(id) {
+    //     localStorage.setItem('course_id', id)
+    //     window.location.replace(`/course/${id}/materials`)
+    // }
 
     const handleSort = (fromYear, toYear, Year) => {
         axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
@@ -409,13 +375,13 @@ export default function List() {
         setInputID(e.target.value)
     }
 
-    const handleInputFrom = async (e) => {
-        setInputFrom(e.target.value)
-    }
+    // const handleInputFrom = async (e) => {
+    //     setInputFrom(e.target.value)
+    // }
 
-    const handleInputTo = async (e) => {
-        setInputTo(e.target.value)
-    }
+    // const handleInputTo = async (e) => {
+    //     setInputTo(e.target.value)
+    // }
 
     const handleInputTeacher_id = async (e) => {
         setInputTeacher_id(e.value)
@@ -428,11 +394,6 @@ export default function List() {
     const handleName = async (e) => {
         setName(e.target.value)
     }
-
-    // const handleRoom1 = async (e) => {
-    //   setRoom1(e.target.value)
-    // }
-
     const handleID = async (e) => {
         setID(e.target.value)
     }
@@ -462,22 +423,9 @@ export default function List() {
     }
     useEffect(() => {
         Thesis();
-        // axios.get("http://localhost:3001/thesis/", { thesis_id:id })
-        //     .then((result) => {
-        //         setFile(result.data[0].file)
-        //     })
-        //     .catch(error => console.log(error));
+
 
     }, [])
-
-    // const Thesis = async () => {
-    //   axios.get("http://localhost:3001/thesis/all")
-    //   .then((result)=>{
-    //     setThesis(result.data)
-    //     console.log(result.data)
-    //   })
-    //   .catch(error => console.log(error));
-    // }
 
     const [open, setOpen] = React.useState(false);
 
@@ -503,8 +451,7 @@ export default function List() {
         setID(response.data[0].id)
         setTeacher(response.data[0].supervisor_name)
         setType(response.data[0].field)
-        setFile(response.data[0].file)
-        setInputFile(response.data[0].file)
+        setFile(response.data[0].files)
         setDesc(response.data[0].descr)
     }
 
@@ -517,37 +464,21 @@ export default function List() {
                 setYear(result.data[0].year)
                 setDesc(result.data[0].descr)
                 setType(result.data[0].field)
-                // setPhoto(result.data[0].file)
-                setViewPdf(result.data[0].file)
+                setFile(result.data[0].files)
                 setTeacher(result.data[0].supervisor_name)
             })
             .catch(error => console.log(error));
+
+        // await axios.get("http://localhost:3001/getall/" + thesis_id)
+        //     .then((result) => {
+        //         setFile(result.data[0].filepath)
+        //     })
+        //     .catch(error => console.log(error));
         setOpenView(true);
     }
 
     const handleSubmitEdit = async () => {
-        const response = axios.post("http://localhost:3000/admin/update/course",
-            {
-                course_desc: Desc, course_name: Name, teacher_id: Teacher_id,
-                FromYear: From, semester: Semester, old_id: oldID, new_id: ID,
-                ToYear: To, year: Year, type: Type, photo: Photo
-            },
-            { withCredentials: true })
-        for (var i = 0; i < length; i++) {
-            const response1 = await axios.post("http://localhost:3000/" +
-                "admin/verify/course/schedule",
-                {
-                    room: Room[i], startTime: StartTime[i], endTime: EndTime[i],
-                    date: Date[i]
-                })
-            if (response1.data.results !== 'no') {
-                axios.post("http://localhost:3000/admin/update/course/schedule",
-                    {
-                        id: Schedule_id[i], room: Room[i], startTime: StartTime[i],
-                        endTime: EndTime[i], date: Date[i]
-                    })
-            }
-        }
+
         setOpenEdit(false);
         window.location.replace('/thesis/list')
     }
@@ -579,7 +510,7 @@ export default function List() {
     }
 
     const handleCreate = async (course_id) => {
-        setid(course_id)
+        // setid(course_id)
         setOpenCreate(true);
     }
 
@@ -606,7 +537,7 @@ export default function List() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const [, setFilter] = useState({ searchText: '' });
+    const [setFilter] = useState({ searchText: '' });
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
             const newSelected = rows.map((n) => n.name);
@@ -648,9 +579,9 @@ export default function List() {
         setPage(newPage);
     };
 
-    const handleDoc = (id) => {
-        window.location.replace(`/course/${id}/materials`)
-    }
+    // const handleDoc = (id) => {
+    //     window.location.replace(`/course/${id}/materials`)
+    // }
     const handleChangeRowsPerPage = (event, newValue) => {
         setRowsPerPage(parseInt(newValue.toString(), 10));
         setPage(0);
@@ -734,18 +665,18 @@ export default function List() {
                                 </SELECT_OPTIONS>
                                 <FormLabel required>From</FormLabel>
                                 <SELECT_OPTIONS
-                                    onChange={handleFromYear}
+                                    // onChange={handleFromYear}
                                     placeholder="From Year"
-                                    defaultValue={[fromYear[20], fromYear[20]]}
-                                    options={fromYear}
+                                // defaultValue={[fromYear[20], fromYear[20]]}
+                                // options={fromYear}
                                 >
                                 </SELECT_OPTIONS>
                                 <FormLabel required>To</FormLabel>
                                 <SELECT_OPTIONS
                                     onChange={handleToYear}
                                     placeholder="To Year"
-                                    defaultValue={[toYear[20], toYear[20]]}
-                                    options={toYear}
+                                // defaultValue={[toYear[20], toYear[20]]}
+                                // options={toYear}
                                 >
                                 </SELECT_OPTIONS>
                                 <FormLabel required>Type</FormLabel>
@@ -1089,21 +1020,24 @@ export default function List() {
                         </Typography>
                     </Flex>
                     <Grid >
-                        {/* <VStack spacing="3">
+                        <VStack spacing="3">
                             <span style={{ marginLeft: '50px', marginTop: '10px', width: 250, height: 250, border: '2px  solid #6f2da8 ', borderRadius: '5px', boxShadow: '2px 2px 2px gray' }}>
-                            <iframe style={{height:'100%', width:'100%'}} overflow= "hidden" scrolling="no" frameBorder="none" src={Files}></iframe>
+                                <iframe style={{height:'100%', width:'100%'}} overflow= "hidden" scrolling="no" frameBorder="none" src={`http://localhost:3001/static/${Files}`}></iframe>
+                                {/* {`http://localhost:3001/static/${Files}`} */}
+                                {/* {Files.map((Files, index) => (
+                                    <img
+                                        key={index}
+                                        src={Files}
+                                        alt={`Files ${index}`}
+                                        style={{ width: '200px', height: 'auto' }}
+                                    />
+                                ))} */}
                             </span>
-                        </VStack> */}
-                        <div className='pdf-container'>
-                            {/* show pdf conditionally (if we have one)  */}
-                            {viewPdf && <><Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-                                <Viewer fileUrl={viewPdf}
-                                />
-                            </Worker></>}
 
-                            {/* if we dont have pdf or viewPdf state is null */}
-                            {!viewPdf && <>No pdf file selected</>}
-                        </div>
+                            {/* <div className="file-list"> 
+                               
+                            </div> */}
+                        </VStack>
 
                         <VStack style={{ marginTop: '10px', textAlign: 'left', fontSize: '16px' }}>
                             <div>
@@ -1175,19 +1109,19 @@ export default function List() {
                     >
                         <FormControl sx={{ width: '200px' }}>
                             <SELECT_OPTIONS
-                                onChange={handleFromYear}
+                                // onChange={handleFromYear}
                                 placeholder="From Year"
-                                defaultValue={[fromYear[20], fromYear[20]]}
-                                options={fromYear}
+                            // defaultValue={[fromYear[20], fromYear[20]]}
+                            // options={fromYear}
                             >
                             </SELECT_OPTIONS>
                         </FormControl>
                         <FormControl sx={{ width: '200px' }}>
                             <SELECT_OPTIONS
-                                onChange={handleToYear}
+                                // onChange={handleToYear}
                                 placeholder="To Year"
-                                defaultValue={[toYear[20], toYear[20]]}
-                                options={toYear}
+                            // defaultValue={[toYear[20], toYear[20]]}
+                            // options={toYear}
                             >
                             </SELECT_OPTIONS>
                         </FormControl>
